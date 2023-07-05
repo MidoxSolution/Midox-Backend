@@ -42,7 +42,6 @@ public class Stock{
     private Integer quantity;
 
     @NonNull
-    @Column(name = "amount_count")
-    private Integer amountCount;
+    private Integer amount;
 
 }
