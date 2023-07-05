@@ -1,10 +1,12 @@
 package com.midox.MIDOX.inventory.util;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Message {

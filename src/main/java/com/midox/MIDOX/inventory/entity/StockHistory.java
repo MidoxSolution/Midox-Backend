@@ -10,13 +10,19 @@ import lombok.*;
 @RequiredArgsConstructor
 @Entity
 @Builder
-public class Stock{
+@Table(name = "stock_history")
+public class StockHistory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stock_no_generator")
-    @SequenceGenerator(name = "stock_no_generator", sequenceName = "stock_seq", allocationSize = 1)
-    @Column(name = "stock_no",unique = true)
-    private Integer stockNo;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stock_history_generator")
+    @SequenceGenerator(name = "stock_history_generator", sequenceName = "stock_history_seq", allocationSize = 1)
+    @Column(name = "stock_history_id",unique = true)
+    private Integer stockHistoryId;
+
+    @NonNull
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "stock")
+    private Stock stock;
 
     @NonNull
     @Column(name = "bill_date")
@@ -42,7 +48,5 @@ public class Stock{
     private Integer quantity;
 
     @NonNull
-    @Column(name = "amount_count")
-    private Integer amountCount;
-
+    private Integer amount;
 }

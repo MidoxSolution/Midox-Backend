@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IStockService {
 
-    public Integer addStock(Stock stock);
+    public Boolean addStock(List<Stock> stockList);
 
     public List<Stock> getAllStocks();
 }
