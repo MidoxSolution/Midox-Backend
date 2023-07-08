@@ -1,14 +1,16 @@
 package com.midox.MIDOX.inventory.controller;
 
+import com.midox.MIDOX.inventory.entity.GenericOptions;
 import com.midox.MIDOX.inventory.service.IGenericService;
+import com.midox.MIDOX.inventory.util.ConfigConstants;
+import com.midox.MIDOX.inventory.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/generic")
@@ -17,10 +19,18 @@ public class GenericController {
     private IGenericService service;
 
     @GetMapping("/dropdowns")
-    public ResponseEntity<List<List<String>>> getDropdowns() {
-        ResponseEntity<List<List<String>>> response = null;
-        List<List<String>> dropdownsList = service.getAllDropdowns();
+    public ResponseEntity<Map<String, List<GenericOptions>>> getDropdowns() {
+        ResponseEntity<Map<String, List<GenericOptions>>> response = null;
+        Map<String, List<GenericOptions>> dropdownsList = service.getAllDropdowns();
         response = new ResponseEntity<>(dropdownsList, HttpStatus.OK);
+        return response;
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<Message> addGenericOption(@RequestBody List<GenericOptions> genericOptions) {
+        ResponseEntity<Message> response = null;
+        service.addDropdownValue(genericOptions);
+        response = new ResponseEntity<>(new Message(ConfigConstants.Messages.GENERIC_OPTIONS_ADDED), HttpStatus.OK);
         return response;
     }
 }
