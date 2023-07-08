@@ -18,10 +18,12 @@ public class Stock{
     @Column(name = "stock_no",unique = true)
     private Integer stockNo;
 
+    // Cannot be held at stock level, as this would be unique for every bill - whereas stock is a total available quantity of stock.
     @NonNull
     @Column(name = "bill_date")
     private String billDate;
 
+    // same as billDate - shouldn't be here
     @NonNull
     @Column(name = "packing_slip_no")
     private Integer packingSlipNo;
@@ -34,6 +36,7 @@ public class Stock{
     @JoinColumn(name = "material")
     private Material material;
 
+    // Check it - can be kept at material level ..?
     @NonNull
     @Column(name = "measurement_type")
     private String measurementType;
@@ -41,6 +44,7 @@ public class Stock{
     @NonNull
     private Integer quantity;
 
+    // Again same thing - this belongs to every specfic entry of stock purchase and cannot exist here
     @NonNull
     private Integer amount;
 

@@ -10,6 +10,7 @@ import lombok.*;
 @RequiredArgsConstructor
 @Entity
 @Builder
+// create similar entity for drop_type - which would act as a group key
 public class GenericOptions {
 
 

@@ -32,9 +32,11 @@ public class StockHistory {
     @Column(name = "packing_slip_no")
     private Integer packingSlipNo;
 
+    // Check it, this should be available at material level. I think this would be redundant.
     @NonNull
     private String supplier;
 
+    // This could be kept at stock level - think about it.
     @NonNull
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "material")

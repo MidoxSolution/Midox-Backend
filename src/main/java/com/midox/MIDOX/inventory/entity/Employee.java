@@ -10,6 +10,7 @@ import lombok.*;
 @RequiredArgsConstructor
 @Entity
 @Builder
+// can work when enhancing
 public class Employee {
 
     @Id

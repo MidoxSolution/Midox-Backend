@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 @Builder
+// Can work when enhancing
 public class Bundle {
 
     @Id

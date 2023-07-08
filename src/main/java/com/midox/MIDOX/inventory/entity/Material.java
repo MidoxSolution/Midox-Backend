@@ -10,6 +10,7 @@ import lombok.*;
 @RequiredArgsConstructor
 @Entity
 @Builder
+// Add material cd also
 public class Material {
 
     @Id

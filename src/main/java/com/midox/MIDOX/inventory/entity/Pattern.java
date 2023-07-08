@@ -10,6 +10,7 @@ import lombok.*;
 @RequiredArgsConstructor
 @Entity
 @Builder
+// not sure about this
 public class Pattern {
 
     @Id
