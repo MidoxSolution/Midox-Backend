@@ -3,6 +3,8 @@ package com.midox.MIDOX.inventory.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @NoArgsConstructor(force = true)
@@ -10,6 +12,7 @@ import lombok.*;
 @RequiredArgsConstructor
 @Entity
 @Builder
+// not sure about this
 public class Pattern {
 
     @Id
@@ -21,4 +24,20 @@ public class Pattern {
     @NonNull
     @Column(name = "pattern_name")
     private String patternName;
+
+    @NonNull
+    @Column(name = "created_at")
+    private Timestamp createdAt;
+
+    @NonNull
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
+
+    @NonNull
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @NonNull
+    @Column(name = "updated_by")
+    private String updatedBy;
 }

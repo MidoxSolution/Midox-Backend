@@ -10,24 +10,25 @@ import lombok.*;
 @RequiredArgsConstructor
 @Entity
 @Builder
-public class GenericOptions {
+// create similar entity for drop_type - which would act as a group key
+public class GenericOptions extends Audit{
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dropdown_generator")
-    @SequenceGenerator(name = "dropdown_generator", sequenceName = "dropdown_seq", allocationSize = 1)
-    @Column(name = "drop_id",unique = true)
-    private Integer dropId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generic_id_generator")
+    @SequenceGenerator(name = "generic_id_generator", sequenceName = "generic_options_seq", allocationSize = 1)
+    @Column(name = "generic_id",unique = true)
+    private Integer genericId;
 
     @NonNull
-    @Column(name = "drop_type")
-    private String dropType;
+    @Column(name = "generic_group_type")
+    private String genericGroupType;
 
     @NonNull
-    @Column(name = "drop_key")
-    private String dropKey;
+    @Column(name = "dropdown_key")
+    private String dropdownKey;
 
     @NonNull
-    @Column(name = "drop_value")
-    private String dropValue;
+    @Column(name = "dropdown_value")
+    private String dropdownValue;
 }

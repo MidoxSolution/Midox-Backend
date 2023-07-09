@@ -3,6 +3,8 @@ package com.midox.MIDOX.inventory.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @NoArgsConstructor(force = true)
@@ -32,9 +34,11 @@ public class StockHistory {
     @Column(name = "packing_slip_no")
     private Integer packingSlipNo;
 
+    // Check it, this should be available at material level. I think this would be redundant.
     @NonNull
     private String supplier;
 
+    // This could be kept at stock level - think about it.
     @NonNull
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "material")
@@ -49,4 +53,20 @@ public class StockHistory {
 
     @NonNull
     private Integer amount;
+
+    @NonNull
+    @Column(name = "created_at")
+    private Timestamp createdAt;
+
+    @NonNull
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
+
+    @NonNull
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @NonNull
+    @Column(name = "updated_by")
+    private String updatedBy;
 }

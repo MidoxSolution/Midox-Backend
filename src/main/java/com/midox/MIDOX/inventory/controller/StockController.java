@@ -2,7 +2,7 @@ package com.midox.MIDOX.inventory.controller;
 
 import com.midox.MIDOX.inventory.entity.Stock;
 import com.midox.MIDOX.inventory.service.IStockService;
-import com.midox.MIDOX.inventory.util.ConfigConstants;
+import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

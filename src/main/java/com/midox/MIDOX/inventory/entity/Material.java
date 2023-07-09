@@ -3,6 +3,8 @@ package com.midox.MIDOX.inventory.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @NoArgsConstructor(force = true)
@@ -10,7 +12,8 @@ import lombok.*;
 @RequiredArgsConstructor
 @Entity
 @Builder
-public class Material {
+// Add material cd also
+public class Material extends Audit{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "material_id_generator")
@@ -29,5 +32,21 @@ public class Material {
     @NonNull
     @Column(name = "color_fabric_code")
     private String colorFabricCode;
+
+    @NonNull
+    @Column(name = "created_at")
+    private Timestamp createdAt;
+
+    @NonNull
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
+
+    @NonNull
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @NonNull
+    @Column(name = "updated_by")
+    private String updatedBy;
 
 }

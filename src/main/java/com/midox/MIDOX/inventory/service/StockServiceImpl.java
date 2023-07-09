@@ -15,7 +15,7 @@ import java.util.List;
 public class StockServiceImpl implements IStockService {
 
     @Autowired
-    private StockRepository repo;
+    private StockRepository stockRepo;
 
     @Autowired
     private final StockDao stockDao;
@@ -29,9 +29,10 @@ public class StockServiceImpl implements IStockService {
 
     @Override
     public Boolean addStock(List<Stock> stockList) {
+        //this should update the total available quantity of stock in stock table also - apart from creating entry in stock history
         for (Stock stock : stockList) {
             //  Material material = stock.getMaterial();
-            Integer stockNo = repo.save(stock).getStockNo();
+            Integer stockNo = stockRepo.save(stock).getStockNo();
             stockHistoryService.addStock(stock);
         }
         return true;

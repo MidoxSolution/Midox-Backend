@@ -3,13 +3,16 @@ package com.midox.MIDOX.inventory.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Entity
 @Builder
-public class Bundle {
+// Can work when enhancing
+public class Bundle extends Audit{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bundle_id_generator")
@@ -20,4 +23,20 @@ public class Bundle {
     @NonNull
     @Column(name = "bundle_name")
     private String bundleName;
+
+    @NonNull
+    @Column(name = "created_at")
+    private Timestamp createdAt;
+
+    @NonNull
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
+
+    @NonNull
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @NonNull
+    @Column(name = "updated_by")
+    private String updatedBy;
 }

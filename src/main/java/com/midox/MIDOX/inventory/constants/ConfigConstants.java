@@ -1,4 +1,4 @@
-package com.midox.MIDOX.inventory.util;
+package com.midox.MIDOX.inventory.constants;
 
 public class ConfigConstants {
 
