@@ -3,6 +3,8 @@ package com.midox.MIDOX.inventory.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @NoArgsConstructor(force = true)
@@ -31,4 +33,21 @@ public class GenericOptions extends Audit{
     @NonNull
     @Column(name = "dropdown_value")
     private String dropdownValue;
+
+    @NonNull
+    @Column(name = "created_at")
+    private Timestamp createdAt;
+
+    @NonNull
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
+
+    @NonNull
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @NonNull
+    @Column(name = "updated_by")
+    private String updatedBy;
+
 }

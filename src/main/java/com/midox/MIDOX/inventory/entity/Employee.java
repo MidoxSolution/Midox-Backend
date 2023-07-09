@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 // can work when enhancing
 public class Employee extends Audit{
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "emp_id_generator")
     @SequenceGenerator(name = "emp_id_generator", sequenceName = "emp_seq", allocationSize = 1)
