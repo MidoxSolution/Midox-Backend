@@ -1,11 +1,10 @@
 package com.midox.MIDOX.inventory.service;
 
 import com.midox.MIDOX.inventory.entity.GenericOptions;
-import com.midox.MIDOX.inventory.repository.GenricRepository;
+import com.midox.MIDOX.inventory.repository.GenericRepository;
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -16,20 +15,19 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class GenericServiceImpl implements IGenericService {
-    @Autowired
-    private GenricRepository repo;
+    private GenericRepository genericRepo;
 
     private ConfigConstants constants;
 
     @Override
     public Boolean addDropdownValue(List<GenericOptions> genericOptions) {
-        genericOptions.forEach(genericOption -> repo.save(genericOption));
+        genericOptions.forEach(genericOption -> genericRepo.save(genericOption));
         return true;
     }
 
     @Override
     public Map<String, List<GenericOptions>> getAllDropdowns() {
-        List<GenericOptions> optionsList = repo.findAll();
+        List<GenericOptions> optionsList = genericRepo.findAll();
         if(ValidationUtil.isEmpty(optionsList)) {
             return optionsList.stream().distinct().collect(Collectors.groupingBy(GenericOptions::getGenericGroupType));
         }

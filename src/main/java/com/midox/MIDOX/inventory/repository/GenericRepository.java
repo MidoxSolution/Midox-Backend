@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GenricRepository extends JpaRepository<GenericOptions, Integer> {
+public interface GenericRepository extends JpaRepository<GenericOptions, Integer> {
 }
