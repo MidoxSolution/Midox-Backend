@@ -12,14 +12,13 @@ import java.sql.Timestamp;
 @RequiredArgsConstructor
 @Entity
 @Builder
-// Add material cd also
 
-public class Material extends Audit{
+public class Material extends AbstractDataEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "material_id_generator")
     @SequenceGenerator(name = "material_id_generator", sequenceName = "material_seq", allocationSize = 1)
-    @Column(name = "material_id",unique = true)
+    @Column(name = "material_id", unique = true)
     private Integer materialId;
 
     @NonNull
@@ -31,8 +30,15 @@ public class Material extends Audit{
     private String subCategory;
 
     @NonNull
+    @Column(name = "measurement_type")
+    private String measurementType;
+
+    @NonNull
     @Column(name = "color_fabric_code")
     private String colorFabricCode;
+
+    @NonNull
+    private String supplier;
 
     @NonNull
     @Column(name = "created_at")

@@ -1,43 +1,59 @@
 package com.midox.MIDOX.inventory.service;
 
-import com.midox.MIDOX.inventory.DAO.StockDao;
+import com.midox.MIDOX.inventory.entity.Material;
 import com.midox.MIDOX.inventory.entity.Stock;
+import com.midox.MIDOX.inventory.entity.StockHistory;
+import com.midox.MIDOX.inventory.repository.StockHistoryRepository;
 import com.midox.MIDOX.inventory.repository.StockRepository;
 import com.midox.MIDOX.inventory.util.ValidationUtil;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class StockServiceImpl implements IStockService {
 
-    @Autowired
-    private StockRepository stockRepo;
-
-    @Autowired
-    private final StockDao stockDao;
-
-    private IStockHistoryService stockHistoryService;
-
-
-    private ValidationUtil validationUtil;
+    private final StockRepository stockRepo;
+    private final StockHistoryRepository stockHistoryRepo;
 
     @Override
-    public Boolean addStock(List<Stock> stockList) {
+    public Boolean addStock(StockHistory stockHistory) {
         //this should update the total available quantity of stock in stock table also - apart from creating entry in stock history
-        for (Stock stock : stockList) {
-            Integer stockNo = stockRepo.save(stock).getStockNo();
-            stockHistoryService.addStock(stock);
-        }
+
+        Integer stockHistoryId = stockHistoryRepo.save(stockHistory).getStockHistoryId();
+
         return true;
     }
 
     @Override
     public List<Stock> getAllStocks() {
-        List<Stock> stockList = stockDao.getStockList();
+        List<Stock> stockList = stockRepo.getStockList();
         return stockList;
+    }
+
+    @Override
+    public void updateStockCount(List<Stock> stockList, Integer quantity) {
+
+        Material material = new Material();
+        AtomicInteger existingQuantity = new AtomicInteger();
+        stockList.stream().filter(stockStream -> {
+            material.setMaterialName(stockStream.getMaterial().getMaterialName());
+            material.setMaterialId(stockStream.getMaterial().getMaterialId());
+            existingQuantity.set(stockStream.getQuantity());
+            return true;
+        }).collect(Collectors.toList());
+        int updatedQuantity = existingQuantity.intValue() + quantity;
+        if (ValidationUtil.isNotNull(material.getMaterialName())) {
+            try {
+                stockRepo.updateStockCount(material.getMaterialId(), updatedQuantity);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

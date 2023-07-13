@@ -28,4 +28,14 @@ public class ValidationUtil {
         return list == null || list.isEmpty();
     }
 
+    public static <T> boolean isNotEmpty(List<T> list) {
+        return list.size() > 0;
+    }
+
+    public static boolean isNotNull(String string) {
+        if (string != null) {
+            return true;
+        }
+        return false;
+    }
 }

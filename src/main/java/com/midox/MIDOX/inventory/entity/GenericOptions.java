@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Entity
 @Builder
 // create similar entity for drop_type - which would act as a group key
-public class GenericOptions extends Audit{
+public class GenericOptions extends AbstractDataEntity{
 
 
     @Id

@@ -12,12 +12,12 @@ import java.sql.Timestamp;
 @Entity
 @Builder
 // Can work when enhancing
-public class Bundle extends Audit{
+public class Bundle extends AbstractDataEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bundle_id_generator")
     @SequenceGenerator(name = "bundle_id_generator", sequenceName = "bundle_seq", allocationSize = 1)
-    @Column(name = "bundle_id",unique = true)
+    @Column(name = "bundle_id", unique = true)
     private Integer bundleId;
 
     @NonNull

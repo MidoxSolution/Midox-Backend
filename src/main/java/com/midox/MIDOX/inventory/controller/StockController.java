@@ -1,13 +1,16 @@
 package com.midox.MIDOX.inventory.controller;
 
+import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.Stock;
 import com.midox.MIDOX.inventory.service.IStockService;
-import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.util.Message;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +19,7 @@ import java.util.List;
 @RequestMapping("/stock")
 public class StockController {
 
-    @Autowired
-    private IStockService service;
+    private IStockService stockService;
 
     @GetMapping("/test")
     public ResponseEntity<Message> testApp() {
@@ -26,7 +28,7 @@ public class StockController {
         return response;
     }
 
-    @PostMapping("/save")
+   /* @PostMapping("/save")
     public ResponseEntity<Message> addStock(@RequestBody List<Stock> stockList) {
         ResponseEntity<Message> response = null;
         try {
@@ -37,12 +39,12 @@ public class StockController {
             e.printStackTrace();
         }
         return response;
-    }
+    }*/
 
     @GetMapping("/list")
     public ResponseEntity<List<Stock>> viewStocks() {
         ResponseEntity<List<Stock>> response = null;
-        List<Stock> stockList = service.getAllStocks();
+        List<Stock> stockList = stockService.getAllStocks();
         response = new ResponseEntity<>(new ArrayList<>(stockList), HttpStatus.OK);
         return response;
     }

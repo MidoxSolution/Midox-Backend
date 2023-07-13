@@ -1,5 +1,6 @@
 package com.midox.MIDOX.inventory.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,46 +14,29 @@ import java.sql.Timestamp;
 @Entity
 @Builder
 @Table(name = "stock_history")
-public class StockHistory {
+public class StockHistory extends AbstractDataEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stock_history_generator")
     @SequenceGenerator(name = "stock_history_generator", sequenceName = "stock_history_seq", allocationSize = 1)
-    @Column(name = "stock_history_id",unique = true)
+    @Column(name = "stock_history_id", unique = true)
     private Integer stockHistoryId;
 
     @NonNull
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "stock")
+    @JoinColumn(name = "stock", unique = true)
     private Stock stock;
-
-    @NonNull
-    @Column(name = "bill_date")
-    private String billDate;
 
     @NonNull
     @Column(name = "packing_slip_no")
     private Integer packingSlipNo;
 
-    // Check it, this should be available at material level. I think this would be redundant.
-    @NonNull
-    private String supplier;
-
-    // This could be kept at stock level - think about it.
-    @NonNull
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "material")
-    private Material material;
-
-    @NonNull
-    @Column(name = "measurement_type")
-    private String measurementType;
-
     @NonNull
     private Integer quantity;
 
     @NonNull
-    private Integer amount;
+    private Float amount;
 
     @NonNull
     @Column(name = "created_at")
