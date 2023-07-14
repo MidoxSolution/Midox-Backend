@@ -1,5 +1,6 @@
 package com.midox.MIDOX.inventory.controller;
 
+import com.midox.MIDOX.inventory.entity.GenericGroupTypes;
 import com.midox.MIDOX.inventory.entity.GenericOptions;
 import com.midox.MIDOX.inventory.service.IGenericService;
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
@@ -19,9 +20,9 @@ public class GenericController {
     private IGenericService service;
 
     @GetMapping("/dropdowns")
-    public ResponseEntity<Map<String, List<GenericOptions>>> getDropdowns() {
-        ResponseEntity<Map<String, List<GenericOptions>>> response = null;
-        Map<String, List<GenericOptions>> dropdownsList = service.getAllDropdowns();
+    public ResponseEntity<Map<GenericGroupTypes, List<GenericOptions>>> getDropdowns() {
+        ResponseEntity<Map<GenericGroupTypes, List<GenericOptions>>> response = null;
+        Map<GenericGroupTypes, List<GenericOptions>> dropdownsList = service.getAllDropdowns();
         response = new ResponseEntity<>(dropdownsList, HttpStatus.OK);
         return response;
     }

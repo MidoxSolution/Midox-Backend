@@ -1,5 +1,6 @@
 package com.midox.MIDOX.inventory.service;
 
+import com.midox.MIDOX.inventory.entity.GenericGroupTypes;
 import com.midox.MIDOX.inventory.entity.GenericOptions;
 
 import java.util.List;
@@ -9,6 +10,6 @@ public interface IGenericService {
 
     public Boolean addDropdownValue(List<GenericOptions> genericOptions);
 
-    public Map<String, List<GenericOptions>> getAllDropdowns();
+    public Map<GenericGroupTypes, List<GenericOptions>> getAllDropdowns();
 
 }

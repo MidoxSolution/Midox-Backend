@@ -13,18 +13,19 @@ import java.sql.Timestamp;
 @Entity
 @Builder
 // create similar entity for drop_type - which would act as a group key
-public class GenericOptions extends AbstractDataEntity{
+public class GenericOptions extends AbstractDataEntity {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generic_id_generator")
     @SequenceGenerator(name = "generic_id_generator", sequenceName = "generic_options_seq", allocationSize = 1)
-    @Column(name = "generic_id",unique = true)
+    @Column(name = "generic_id", unique = true)
     private Integer genericId;
 
     @NonNull
-    @Column(name = "generic_group_type")
-    private String genericGroupType;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "generic_group_type", unique = true)
+    private GenericGroupTypes genericGroupType;
 
     @NonNull
     @Column(name = "dropdown_key")

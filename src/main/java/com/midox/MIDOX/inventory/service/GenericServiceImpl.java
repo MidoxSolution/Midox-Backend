@@ -1,5 +1,6 @@
 package com.midox.MIDOX.inventory.service;
 
+import com.midox.MIDOX.inventory.entity.GenericGroupTypes;
 import com.midox.MIDOX.inventory.entity.GenericOptions;
 import com.midox.MIDOX.inventory.repository.GenericRepository;
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
@@ -26,7 +27,7 @@ public class GenericServiceImpl implements IGenericService {
     }
 
     @Override
-    public Map<String, List<GenericOptions>> getAllDropdowns() {
+    public Map<GenericGroupTypes, List<GenericOptions>> getAllDropdowns() {
         List<GenericOptions> optionsList = genericRepo.findAll();
         if(ValidationUtil.isEmpty(optionsList)) {
             return optionsList.stream().distinct().collect(Collectors.groupingBy(GenericOptions::getGenericGroupType));
