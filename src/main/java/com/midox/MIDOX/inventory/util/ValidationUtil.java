@@ -1,5 +1,6 @@
 package com.midox.MIDOX.inventory.util;
 
+import com.midox.MIDOX.inventory.entity.GenericOptions;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -34,6 +35,13 @@ public class ValidationUtil {
 
     public static boolean isNotNull(String string) {
         if (string != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public static <T> boolean isNotNull(List<T> optionsList) {
+        if (optionsList.size() > 0) {
             return true;
         }
         return false;

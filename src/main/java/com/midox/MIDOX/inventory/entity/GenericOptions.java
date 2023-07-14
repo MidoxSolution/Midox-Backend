@@ -1,5 +1,6 @@
 package com.midox.MIDOX.inventory.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class GenericOptions extends AbstractDataEntity {
     private Integer genericId;
 
     @NonNull
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "generic_group_type", unique = true)
     private GenericGroupTypes genericGroupType;
