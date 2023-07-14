@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class GenericServiceImpl implements IGenericService {
-    private GenericRepository genericRepo;
+    private final GenericRepository genericRepo;
 
-    private ConfigConstants constants;
+    private  ConfigConstants constants;
 
     @Override
     public Boolean addDropdownValue(List<GenericOptions> genericOptions) {

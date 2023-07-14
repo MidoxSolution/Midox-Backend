@@ -27,7 +27,7 @@ public class StockHistoryController {
             Boolean booleanValue = stockHistoryService.addStockHistory(stockHistories);
             response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_ADDED), HttpStatus.OK);
         } catch (Exception e) {
-            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_ADD_FAILED), HttpStatus.OK);
+            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_ADD_OPERATION_FAILED), HttpStatus.OK);
             e.printStackTrace();
         }
         return response;
@@ -45,7 +45,7 @@ public class StockHistoryController {
 
             }
         } catch (Exception e) {
-            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+            response = new ResponseEntity<Message>(new Message(ConfigConstants.ErrorMessages.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
             e.printStackTrace();
         }
         return (ResponseEntity<Message>) response;

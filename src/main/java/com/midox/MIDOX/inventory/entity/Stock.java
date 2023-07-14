@@ -1,5 +1,6 @@
 package com.midox.MIDOX.inventory.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class Stock extends AbstractDataEntity {
     private Integer stockNo;
 
     @NonNull
+    @JsonBackReference
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "material", unique = true)
     private Material material;

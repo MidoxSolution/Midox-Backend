@@ -1,5 +1,8 @@
 package com.midox.MIDOX.inventory.constants;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class ConfigConstants {
 
     public static final class Numbers {
@@ -22,15 +25,18 @@ public class ConfigConstants {
 
     public static final class Messages {
         public static final String STATUS = "MIDOX IS WORKING FINE.";
-        public static final String STOCK_ADDED = "STOCK ADDED SUCCESSFULLY.";
-        public static final String STOCK_ADD_FAILED = "STOCK ADD OPERATION FAILED.";
         public static final String GENERIC_OPTIONS_ADDED = "GENERIC OPTIONS ADDED SUCCESSFULLY.";
+        public static final String STOCK_ADDED = "STOCK ADDED SUCCESSFULLY.";
+        public static final String STOCK_ADD_OPERATION_FAILED = "STOCK ADD OPERATION FAILED.";
         public static final String STOCK_HISTORY_NOT_FOUND = "STOCK HISTORY NOT FOUND.";
-        public static final String INTERNAL_SERVER_ERROR = "INTERNAL SERVER ERROR.";
+        public static final String EMPLOYEE_ADDED_SUCCESSFULLY = "EMPLOYEE ADDED SUCCESSFULLY.";
+        public static final String EMPLOYEE_ADD_OPERATION_FAILED = "EMPLOYEE ADD OPERATION FAILED.";
     }
 
     public static final class ErrorMessages {
         public static final String Error = "Error";
+        public static final String INTERNAL_SERVER_ERROR = "INTERNAL SERVER ERROR.";
+
 
     }
 

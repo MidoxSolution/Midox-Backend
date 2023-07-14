@@ -11,8 +11,8 @@ import java.util.List;
 
 @Repository
 public interface StockRepository extends JpaRepository<Stock, Integer> {
-    String stockListQuery = "SELECT stock_no, material.sub_category, material.measurement_type,\n" +
-            " quantity, material.supplier FROM public.stock \n" +
+    String stockListQuery = "SELECT stock_no,stock.material, material.sub_category, material.measurement_type,\n" +
+            " stock.quantity, material.supplier FROM public.stock \n" +
             " inner join material on stock.material = material.material_id \n" +
             " ORDER BY stock_no ASC";
 

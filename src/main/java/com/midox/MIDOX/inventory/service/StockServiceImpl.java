@@ -9,6 +9,8 @@ import com.midox.MIDOX.inventory.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -32,7 +34,16 @@ public class StockServiceImpl implements IStockService {
     @Override
     public List<Stock> getAllStocks() {
         List<Stock> stockList = stockRepo.getStockList();
-        return stockList;
+        List<Stock> stocks= new ArrayList<>();
+        stockList.stream().distinct().forEach(stockIterate -> {
+            Stock stock = new Stock();
+            stock.setStockNo(stockIterate.getStockNo());
+            stock.setQuantity(stockIterate.getQuantity());
+            stock.setMaterial(stockIterate.getMaterial());
+            stocks.add(stock);
+        });
+        return stocks;
+
     }
 
     @Override

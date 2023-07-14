@@ -18,7 +18,7 @@ public class ValidationUtil {
     }
 
     public static <T> boolean isNotNull(Optional<T> optional) {
-        if (optional != null) {
+        if (optional != null && optional.isPresent()) {
             return true;
         }
         return false;

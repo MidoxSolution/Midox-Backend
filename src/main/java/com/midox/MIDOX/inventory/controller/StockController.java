@@ -4,7 +4,6 @@ import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.Stock;
 import com.midox.MIDOX.inventory.service.IStockService;
 import com.midox.MIDOX.inventory.util.Message;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/stock")
 public class StockController {
-
+    @Autowired
     private IStockService stockService;
 
     @GetMapping("/test")
