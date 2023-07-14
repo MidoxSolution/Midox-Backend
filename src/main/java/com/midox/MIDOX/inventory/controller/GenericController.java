@@ -26,7 +26,7 @@ public class GenericController {
         return response;
     }
 
-    @PostMapping("/save")
+    @PostMapping("/dropdown/save")
     public ResponseEntity<Message> addGenericOption(@RequestBody List<GenericOptions> genericOptions) {
         ResponseEntity<Message> response = null;
         service.addDropdownValue(genericOptions);
