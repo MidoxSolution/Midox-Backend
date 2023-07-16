@@ -1,7 +1,6 @@
 package com.midox.MIDOX.inventory.repository;
 
 import com.midox.MIDOX.inventory.entity.Stock;
-import org.hibernate.JDBCException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +17,7 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
 
     String findStockQuery = " SELECT s.stock_no, m.material_name, s.material, s.quantity FROM public.stock s inner join public.material m \n" +
             " ON m.material_id=s.material WHERE m.material_name = :materialName ";
-    String updateStockQuery = "UPDATE public.stock SET quantity= :quantity WHERE material = :materialId";
+    //    String updateStockQuery = "UPDATE public.stock SET quantity= :quantity WHERE material = :materialId";
     String countStockQuery = "SELECT CAST(COUNT(*) as int) FROM public.stock";
 
     @Query(value = stockListQuery, nativeQuery = true)
@@ -30,6 +29,6 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
     @Query(value = countStockQuery, nativeQuery = true)
     int countStock();
 
-    @Query(value = updateStockQuery, nativeQuery = true)
-    void updateStockCount(@Param("materialId") int materialId, @Param("quantity") int quantity) throws JDBCException;
+//    @Query(value = updateStockQuery, nativeQuery = true)
+//    void updateStockCount(@Param("materialId") int materialId, @Param("quantity") int quantity) throws JpaSystemException;
 }

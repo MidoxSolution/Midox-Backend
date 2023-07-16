@@ -25,7 +25,7 @@ public class StockHistory extends AbstractDataEntity {
     @NonNull
     @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "stock", unique = true)
+    @JoinColumn(name = "stock")
     private Stock stock;
 
     @NonNull

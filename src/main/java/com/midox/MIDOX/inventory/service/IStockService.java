@@ -11,5 +11,5 @@ public interface IStockService {
 
     public List<Stock> getAllStocks();
 
-    public void updateStockCount(List<Stock> stock, Integer quantity);
+    public void updateStockCount(List<Stock> stock, StockHistory stockHistory);
 }

@@ -30,7 +30,7 @@ public class StockHistoryServiceImpl implements IStockHistoryService {
             } else {
                 List<Stock> stock = stockRepo.findStock(stockHistory.getStock().getMaterial().getMaterialName());
                 if (ValidationUtil.isNotEmpty(stock)) {
-                    stockService.updateStockCount(stock, stockHistory.getQuantity());
+                    stockService.updateStockCount(stock, stockHistory);
                 } else {
                     stockService.addStock(stockHistory);
                 }
