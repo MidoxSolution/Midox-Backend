@@ -5,6 +5,7 @@ import com.midox.MIDOX.inventory.entity.StockHistory;
 import com.midox.MIDOX.inventory.service.IStockHistoryService;
 import com.midox.MIDOX.inventory.util.Message;
 import com.midox.MIDOX.inventory.util.ValidationUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/stockHistory")
 public class StockHistoryController {
 
     @Autowired
-    private IStockHistoryService stockHistoryService;
+    private final IStockHistoryService stockHistoryService;
 
     @PostMapping("/save")
     public ResponseEntity<Message> addStock(@RequestBody List<StockHistory> stockHistories) {

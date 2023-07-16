@@ -34,4 +34,22 @@ public class ConfigConstants {
 
     }
 
+    public static final class DatabaseConstants {
+        public static final String SCHEMA_NAME = "public";
+
+    }
+
+    public static final class FUNCTION_UPDATE_STOCK {
+        public static final String FUNCTION_UPDATE_STOCK_NAME = "update_stock";
+        public static final String STOCK_HISTORY_ID = "stockHistoryId";
+        public static final String STOCK = "stock";
+        public static final String AMOUNT = "amount";
+        public static final String INSERT_QUANTITY = "insQuantity";
+        public static final String UPDATE_QUANTITY = "updateQuantity";
+        public static final String PACKING_SLIP_NUMBER = "packingSlipNo";
+        public static final String MATERIAL_ID = "materialId";
+        public static final String USER_ID = "userId";
+
+    }
+
 }
