@@ -22,7 +22,6 @@ public class StockServiceImpl implements IStockService {
 
     @Override
     public Boolean addStock(StockHistory stockHistory) {
-        //this should update the total available quantity of stock in stock table also - apart from creating entry in stock history
 
         Integer stockHistoryId = stockHistoryRepo.save(stockHistory).getStockHistoryId();
 
