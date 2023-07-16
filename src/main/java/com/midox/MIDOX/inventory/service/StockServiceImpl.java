@@ -7,10 +7,6 @@ import com.midox.MIDOX.inventory.entity.StockHistory;
 import com.midox.MIDOX.inventory.repository.StockHistoryRepository;
 import com.midox.MIDOX.inventory.repository.StockRepository;
 import com.midox.MIDOX.inventory.util.ValidationUtil;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.ParameterMode;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.StoredProcedureQuery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.SqlParameter;
@@ -21,7 +17,6 @@ import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
-import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -34,15 +29,9 @@ import java.util.stream.Collectors;
 public class StockServiceImpl implements IStockService {
 
 
-    @PersistenceContext
-    private EntityManager em;
     private final DataSource dataSource;
     private final StockRepository stockRepo;
     private final StockHistoryRepository stockHistoryRepo;
-
-    protected EntityManager getEntityManager() {
-        return em;
-    }
 
     @Override
     public Boolean addStock(StockHistory stockHistory) {

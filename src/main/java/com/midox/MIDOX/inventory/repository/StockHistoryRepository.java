@@ -1,15 +1,9 @@
 package com.midox.MIDOX.inventory.repository;
 
 import com.midox.MIDOX.inventory.entity.StockHistory;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.jdbc.support.SQLErrorCodes;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Repository;
-
-import java.sql.Timestamp;
 
 @Repository
 public interface StockHistoryRepository extends JpaRepository<StockHistory, Integer> {
