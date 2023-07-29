@@ -25,12 +25,17 @@ public class ConfigConstants {
 
     public static final class Messages {
         public static final String STATUS = "MIDOX IS WORKING FINE.";
-        public static final String GENERIC_OPTIONS_ADDED = "GENERIC OPTIONS ADDED SUCCESSFULLY.";
+        public static final String GROUP_ENTITY_ADDED = "GROUP ENTITY ADDED SUCCESSFULLY.";
+        public static final String GROUP_MASTER_ADDED = "GROUP MASTER ADDED SUCCESSFULLY.";
+        public static final String GROUP_ENTITY_EDITED = "GROUP ENTITY EDITED SUCCESSFULLY.";
+        public static final String GROUP_ENTITY_DELETED = "GROUP ENTITY DELETED SUCCESSFULLY.";
         public static final String STOCK_ADDED = "STOCK ADDED SUCCESSFULLY.";
         public static final String STOCK_ADD_OPERATION_FAILED = "STOCK ADD OPERATION FAILED.";
         public static final String STOCK_HISTORY_NOT_FOUND = "STOCK HISTORY NOT FOUND.";
         public static final String EMPLOYEE_ADDED_SUCCESSFULLY = "EMPLOYEE ADDED SUCCESSFULLY.";
         public static final String EMPLOYEE_ADD_OPERATION_FAILED = "EMPLOYEE ADD OPERATION FAILED.";
+        public static final String EMPLOYEE_NOT_FOUND = "EMPLOYEE NOT FOUND.";
+
     }
 
     public static final class ErrorMessages {

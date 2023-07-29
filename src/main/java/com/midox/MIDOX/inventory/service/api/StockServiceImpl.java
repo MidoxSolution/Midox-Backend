@@ -1,77 +1,89 @@
-package com.midox.MIDOX.inventory.service;
+package com.midox.MIDOX.inventory.service.api;
 
-import com.midox.MIDOX.inventory.constants.ConfigConstants;
-import com.midox.MIDOX.inventory.entity.Material;
 import com.midox.MIDOX.inventory.entity.Stock;
 import com.midox.MIDOX.inventory.entity.StockHistory;
+import com.midox.MIDOX.inventory.models.StockModel;
 import com.midox.MIDOX.inventory.repository.StockHistoryRepository;
 import com.midox.MIDOX.inventory.repository.StockRepository;
-import com.midox.MIDOX.inventory.util.ValidationUtil;
+import com.midox.MIDOX.inventory.service.spi.IStockHistoryService;
+import com.midox.MIDOX.inventory.service.spi.IStockService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.jdbc.core.SqlParameter;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
-import org.springframework.orm.jpa.JpaSystemException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import javax.sql.DataSource;
-import java.sql.Types;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class StockServiceImpl implements IStockService {
 
+    @Autowired
+    @Lazy
+    IStockHistoryService stockHistoryService;
 
     private final DataSource dataSource;
     private final StockRepository stockRepo;
     private final StockHistoryRepository stockHistoryRepo;
 
     @Override
-    public Boolean addStock(StockHistory stockHistory) {
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Boolean addStocks(List<StockModel> stocks) {
 
-        Integer stockHistoryId = stockHistoryRepo.save(stockHistory).getStockHistoryId();
-
+        //Integer stockHistoryId = stockHistoryRepo.save(stockHistory).getStockHistoryId();
+        stocks.forEach(stockModel -> {
+            Stock stock = stockModel.getStock();
+            Stock found = stockRepo.findStock(stock.getMaterialCd(), stock.getSubcategoryCd(), stock.getColorFabricCd());
+            if(null == found){
+                found = createStock(stock);
+            }
+            StockHistory history = stockModel.getStockHistory();
+            history.setStock(found);
+            stockHistoryService.createStockHistory(history);
+            found.setAvailableQuantity(found.getAvailableQuantity() + history.getQuantity());
+            stockRepo.saveAndFlush(found);
+        });
         return true;
     }
 
     @Override
     public List<Stock> getAllStocks() {
         List<Stock> stockList = stockRepo.getStockList();
-        List<Stock> stocks= new ArrayList<>();
+        /*List<Stock> stocks= new ArrayList<>();
         stockList.stream().distinct().forEach(stockIterate -> {
             Stock stock = new Stock();
-            stock.setStockNo(stockIterate.getStockNo());
             stock.setQuantity(stockIterate.getQuantity());
-            stock.setMaterial(stockIterate.getMaterial());
             stocks.add(stock);
-        });
-        return stocks;
+        });*/
+        return stockList;
+    }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Stock createStock(Stock stock){
+        stock.setDefaultValues();
+        return stockRepo.saveAndFlush(stock);
     }
 
     @Override
     public void updateStockCount(List<Stock> stockList, StockHistory stockHistory) {
-
+/*
         Material material = new Material();
         AtomicInteger existingQuantity = new AtomicInteger();
         AtomicInteger stockNo = new AtomicInteger();
-        Float amount = stockHistory.getAmount();
+        Number amount = stockHistory.getAmount();
         AtomicReference<String> userId = new AtomicReference<>("");
         stockList.stream().filter(stockStream -> {
-            stockNo.set(stockStream.getStockNo());
-            userId.set(stockStream.getMaterial().getCreatedBy());
-            material.setMaterialName(stockStream.getMaterial().getMaterialName());
-            material.setMaterialId(stockStream.getMaterial().getMaterialId());
-            existingQuantity.set(stockStream.getQuantity());
+            //stockNo.set(stockStream.getStockNo());
+            //userId.set(stockStream.getMaterial().getCreatedBy());
+            //material.setMaterialName(stockStream.getMaterial().getMaterialName());
+            //material.setMaterialId(stockStream.getMaterial().getMaterialId());
+            //existingQuantity.set(stockStream.getQuantity());
             return true;
         }).collect(Collectors.toList());
         int updatedQuantity = existingQuantity.intValue() + stockHistory.getQuantity();
@@ -99,7 +111,7 @@ public class StockServiceImpl implements IStockService {
                             .addValue(ConfigConstants.FUNCTION_UPDATE_STOCK.AMOUNT, amount)
                             .addValue(ConfigConstants.FUNCTION_UPDATE_STOCK.INSERT_QUANTITY, stockHistory.getQuantity())
                             .addValue(ConfigConstants.FUNCTION_UPDATE_STOCK.UPDATE_QUANTITY, updatedQuantity)
-                            .addValue(ConfigConstants.FUNCTION_UPDATE_STOCK.PACKING_SLIP_NUMBER, stockHistory.getPackingSlipNo())
+                            //.addValue(ConfigConstants.FUNCTION_UPDATE_STOCK.PACKING_SLIP_NUMBER, stockHistory.getPackingSlipNo())
                             .addValue(ConfigConstants.FUNCTION_UPDATE_STOCK.MATERIAL_ID, material.getMaterialId())
                             .addValue(ConfigConstants.FUNCTION_UPDATE_STOCK.USER_ID, userId.get());
                     simpleJdbcCall.executeFunction(void.class, sqlParameterSource);
@@ -113,6 +125,8 @@ public class StockServiceImpl implements IStockService {
                 e.getRootCause();
             }
         }
-
+*/
     }
+
 }
+

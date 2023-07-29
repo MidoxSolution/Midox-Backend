@@ -1,0 +1,14 @@
+package com.midox.MIDOX.inventory.service.spi;
+
+import com.midox.MIDOX.inventory.entity.Employee;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface IEmployeeService {
+    Employee addEmployee(Employee employee);
+
+    Optional<Employee> getEmployee(Integer employeeId);
+
+    //List<Employee> searchEmployees(String employeeName, String designation, String);
+}

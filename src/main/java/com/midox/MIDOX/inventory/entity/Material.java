@@ -39,21 +39,4 @@ public class Material extends AbstractDataEntity {
 
     @NonNull
     private String supplier;
-
-    @NonNull
-    @Column(name = "created_at")
-    private Timestamp createdAt;
-
-    @NonNull
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
-
-    @NonNull
-    @Column(name = "created_by")
-    private String createdBy;
-
-    @NonNull
-    @Column(name = "updated_by")
-    private String updatedBy;
-
 }

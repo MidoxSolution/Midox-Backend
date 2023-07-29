@@ -2,7 +2,7 @@ package com.midox.MIDOX.inventory.controller;
 
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.StockHistory;
-import com.midox.MIDOX.inventory.service.IStockHistoryService;
+import com.midox.MIDOX.inventory.service.spi.IStockHistoryService;
 import com.midox.MIDOX.inventory.util.Message;
 import com.midox.MIDOX.inventory.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
@@ -39,9 +39,9 @@ public class StockHistoryController {
     public ResponseEntity<?> getStockHistory(@PathVariable int id) {
         ResponseEntity<?> response = null;
         try {
-            Optional<StockHistory> stockHistory = stockHistoryService.getStockHistry(id);
-            if (ValidationUtil.isNotNull(stockHistory)) {
-                response = new ResponseEntity<StockHistory>(stockHistory.get(), HttpStatus.OK);
+            List<StockHistory> stockHistories = stockHistoryService.getStockHistories(id);
+            if (ValidationUtil.isNotNull(stockHistories)) {
+                response = new ResponseEntity<List<StockHistory>>(stockHistories, HttpStatus.OK);
             } else {
                 response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_HISTORY_NOT_FOUND), HttpStatus.BAD_REQUEST);
 

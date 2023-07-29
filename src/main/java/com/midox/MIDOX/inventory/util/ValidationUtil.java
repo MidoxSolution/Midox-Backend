@@ -1,6 +1,5 @@
 package com.midox.MIDOX.inventory.util;
 
-import com.midox.MIDOX.inventory.entity.GenericOptions;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

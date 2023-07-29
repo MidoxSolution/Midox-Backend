@@ -1,6 +1,7 @@
 package com.midox.MIDOX.inventory.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,39 +19,36 @@ public class StockHistory extends AbstractDataEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stock_history_generator")
-    @SequenceGenerator(name = "stock_history_generator", sequenceName = "stock_history_seq", allocationSize = 1)
+    @SequenceGenerator(name = "stock_history_generator", sequenceName = "stock_history_sequence", allocationSize = 1)
     @Column(name = "stock_history_id", unique = true)
     private Integer stockHistoryId;
 
     @NonNull
     @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "stock")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stock_id")
     private Stock stock;
 
-    @NonNull
-    @Column(name = "packing_slip_no")
-    private Integer packingSlipNo;
+    @Nullable
+    @Column(name = "bill_no")
+    private String billNo;
 
     @NonNull
-    private Integer quantity;
+    private Double quantity;
 
     @NonNull
-    private Float amount;
+    private Double amount;
 
-    @NonNull
-    @Column(name = "created_at")
-    private Timestamp createdAt;
+    @Nullable
+    @Column(name = "bill_date")
+    private Timestamp billDate;
 
-    @NonNull
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    @Column(name = "supplier_id")
+    private Integer supplierId;
 
-    @NonNull
-    @Column(name = "created_by")
-    private String createdBy;
-
-    @NonNull
-    @Column(name = "updated_by")
-    private String updatedBy;
+    @Override
+    public void setDefaultValues(){
+        super.setDefaultValues();
+        this.supplierId = 0 == this.supplierId? 1 : this.supplierId;
+    }
 }

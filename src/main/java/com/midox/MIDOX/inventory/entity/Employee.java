@@ -1,8 +1,12 @@
 package com.midox.MIDOX.inventory.entity;
 
+import com.midox.MIDOX.inventory.constants.TextileEnum.*;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.sql.ast.tree.expression.Over;
+import org.springframework.validation.ValidationUtils;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Getter
@@ -20,26 +24,35 @@ public class Employee extends AbstractDataEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "emp_id_generator")
     @SequenceGenerator(name = "emp_id_generator", sequenceName = "emp_seq", allocationSize = 1)
     @Column(name = "emp_id", unique = true)
-    private Integer empID;
+    private Integer empId;
 
     @NonNull
     @Column(name = "emp_name")
     private String empName;
 
     @NonNull
-    @Column(name = "created_at")
-    private Timestamp createdAt;
+    @Column(name = "joining_date")
+    private Date joiningDate;
 
     @NonNull
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    @Column(name = "emp_dob")
+    private Date empDOB;
 
-    @NonNull
-    @Column(name = "created_by")
-    private String createdBy;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private EmployeeStatus status;
 
-    @NonNull
-    @Column(name = "updated_by")
-    private String updatedBy;
+    @Column(name = "identification_no")
+    private String identificationNo;
 
+    @Enumerated(EnumType.STRING)
+    private Designation designation;
+
+    @Override
+    public void setDefaultValues(){
+        super.setDefaultValues();
+        this.status = null == this.status ? EmployeeStatus.EMP_ACTIVE : this.status;
+        this.joiningDate = null == this.joiningDate? new Date(System.currentTimeMillis()) : this.joiningDate;
+    }
 }
+
