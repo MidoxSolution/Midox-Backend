@@ -58,3 +58,14 @@ CREATE SEQUENCE public.emp_seq
 	START 1
 	CACHE 1
 	NO CYCLE;
+
+
+------------------------------------------------FIRST DRAFT -----------------------------------
+
+CREATE SEQUENCE public.brand_sequence
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;

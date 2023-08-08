@@ -1,10 +1,7 @@
 package com.midox.MIDOX.inventory.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NonNull;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -12,7 +9,7 @@ import java.sql.Timestamp;
 @Inheritance(strategy = InheritanceType.JOINED)
 @MappedSuperclass
 @Data
-public class AbstractDataEntity implements Serializable, SetDefaultValues {
+public class AbstractDataEntity implements Serializable, DefaultValues {
     public static final long serialVersionUID = 1L;
 
     @Column(name = "created_at", updatable = false)

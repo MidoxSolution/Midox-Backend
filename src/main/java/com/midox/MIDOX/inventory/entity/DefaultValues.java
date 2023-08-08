@@ -1,5 +1,5 @@
 package com.midox.MIDOX.inventory.entity;
 
-public interface SetDefaultValues {
+public interface DefaultValues {
     void setDefaultValues();
 }

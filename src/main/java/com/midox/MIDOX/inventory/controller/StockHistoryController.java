@@ -27,7 +27,7 @@ public class StockHistoryController {
         ResponseEntity<Message> response = null;
         try {
             Boolean booleanValue = stockHistoryService.addStockHistory(stockHistories);
-            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_ADDED), HttpStatus.OK);
+            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_ADDED), HttpStatus.CREATED);
         } catch (Exception e) {
             response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_ADD_OPERATION_FAILED), HttpStatus.OK);
             e.printStackTrace();

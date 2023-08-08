@@ -91,3 +91,17 @@ CREATE TABLE public.employee (
 	designation varchar NOT NULL,
 	CONSTRAINT employee_pkey PRIMARY KEY (emp_id)
 );
+
+------------------------------------------------------- First Draft -----------------------------
+CREATE TABLE public.brand (
+	brand_id int4 NOT NULL,
+	created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	created_by int4 NULL DEFAULT 1,
+	updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_by int4 NULL DEFAULT 1,
+	brand_name varchar(255) NULL,
+	address varchar(255) NULL,
+	brand_UID varchar(255) NULL,
+	CONSTRAINT brand_pkey PRIMARY KEY (brand_id),
+	CONSTRAINT uk_UID UNIQUE (brand_UID)
+);

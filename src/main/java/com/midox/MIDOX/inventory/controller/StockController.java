@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin()
 @RestController
 @RequestMapping("/stock")
 public class StockController {
@@ -31,9 +31,9 @@ public class StockController {
         ResponseEntity<Message> response = null;
         try {
             Boolean booleanValue = stockService.addStocks(stockList);
-            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_ADDED), HttpStatus.OK);
+            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_ADDED), HttpStatus.CREATED);
         } catch (Exception e) {
-            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_ADD_OPERATION_FAILED), HttpStatus.OK);
+            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_ADD_OPERATION_FAILED), HttpStatus.EXPECTATION_FAILED);
             e.printStackTrace();
         }
         return response;
@@ -42,8 +42,13 @@ public class StockController {
     @GetMapping("/list")
     public ResponseEntity<List<Stock>> viewStocks() {
         ResponseEntity<List<Stock>> response = null;
-        List<Stock> stockList = stockService.getAllStocks();
-        response = new ResponseEntity<>(new ArrayList<>(stockList), HttpStatus.OK);
+        try {
+            List<Stock> stockList = stockService.getAllStocks();
+            response = new ResponseEntity<>(new ArrayList<>(stockList), HttpStatus.OK);
+        } catch (Exception e) {
+        response = new ResponseEntity<List<Stock>>(new ArrayList(), HttpStatus.EXPECTATION_FAILED);
+        e.printStackTrace();
+    }
         return response;
     }
 }

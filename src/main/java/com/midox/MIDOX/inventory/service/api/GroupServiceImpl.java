@@ -26,6 +26,7 @@ public class GroupServiceImpl implements IGroupService {
 
     @Override
     public Boolean createGroupEntities(List<GroupEntity> groupEntities) {
+        // TODO generate entity code automatically
         groupEntities.forEach(entity -> {
             entity.setDefaultValues();
             groupEntityRepo.saveAndFlush(entity);

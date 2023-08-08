@@ -38,6 +38,12 @@ public class Employee extends AbstractDataEntity {
     @Column(name = "emp_dob")
     private Date empDOB;
 
+    // Gender
+
+    // Mobile no
+
+    // Address
+
     @Column
     @Enumerated(EnumType.STRING)
     private EmployeeStatus status;
