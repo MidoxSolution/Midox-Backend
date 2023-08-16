@@ -21,14 +21,27 @@ public class GroupController {
     @Autowired
     private IGroupService service;
 
-    @GetMapping("/get-all-groups")
-    public ResponseEntity<Map<GroupMaster, List<GroupEntity>>> getGroupEntities() {
-        ResponseEntity<Map<GroupMaster, List<GroupEntity>>> response = null;
+    @GetMapping("/get-grouped-entities")
+    public ResponseEntity<Map<String, List<GroupEntity>>> getEntitiesGroupedByMasterCd() {
+        ResponseEntity<Map<String, List<GroupEntity>>> response = null;
         try {
-            Map<GroupMaster, List<GroupEntity>> dropdownsList = service.getAllGroupWithEntities();
-            response = new ResponseEntity<>(dropdownsList, HttpStatus.OK);
+            Map<String, List<GroupEntity>> groupedEntities = service.getAllGroupWithEntities();
+            response = new ResponseEntity<>(groupedEntities, HttpStatus.OK);
         } catch (Exception e) {
-            response = new ResponseEntity<Map<GroupMaster, List<GroupEntity>>>(new HashMap<>(), HttpStatus.EXPECTATION_FAILED);
+            response = new ResponseEntity<>(new HashMap<>(), HttpStatus.EXPECTATION_FAILED);
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    @GetMapping("/get-all-entities")
+    public ResponseEntity<Map<String, GroupEntity>> getEntitiesMap() {
+        ResponseEntity<Map<String, GroupEntity>> response = null;
+        try {
+            Map<String, GroupEntity> entitiesMap = service.getEntitiesMap();
+            response = new ResponseEntity<>(entitiesMap, HttpStatus.OK);
+        } catch (Exception e) {
+            response = new ResponseEntity<>(new HashMap<>(), HttpStatus.EXPECTATION_FAILED);
             e.printStackTrace();
         }
         return response;

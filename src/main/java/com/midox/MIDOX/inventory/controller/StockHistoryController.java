@@ -2,7 +2,12 @@ package com.midox.MIDOX.inventory.controller;
 
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.StockHistory;
+import com.midox.MIDOX.inventory.models.RequestWrapper;
+import com.midox.MIDOX.inventory.models.ResponseWrapper;
+import com.midox.MIDOX.inventory.models.StockHistoryResponse;
+import com.midox.MIDOX.inventory.models.StockHistorySearchCriteria;
 import com.midox.MIDOX.inventory.service.spi.IStockHistoryService;
+import com.midox.MIDOX.inventory.util.Mapper.StockHistoryMapper;
 import com.midox.MIDOX.inventory.util.Message;
 import com.midox.MIDOX.inventory.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +27,9 @@ public class StockHistoryController {
 
     @Autowired
     private final IStockHistoryService stockHistoryService;
+
+    @Autowired
+    private final StockHistoryMapper stockHistoryMapper;
 
     @PostMapping("/save")
     public ResponseEntity<Message> addStock(@RequestBody List<StockHistory> stockHistories) {
@@ -40,8 +49,32 @@ public class StockHistoryController {
         ResponseEntity<?> response = null;
         try {
             List<StockHistory> stockHistories = stockHistoryService.getStockHistories(id);
+            List<ResponseWrapper> result = new ArrayList<>();
+            stockHistories.forEach(sh -> result.add(stockHistoryMapper.toStockHistoryResponse(sh)));
+            //StockHistory  sr = new StockHistoryResponse();
             if (ValidationUtil.isNotNull(stockHistories)) {
-                response = new ResponseEntity<List<StockHistory>>(stockHistories, HttpStatus.OK);
+                response = new ResponseEntity<List<ResponseWrapper>>(result, HttpStatus.OK);
+            } else {
+                response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_HISTORY_NOT_FOUND), HttpStatus.BAD_REQUEST);
+
+            }
+        } catch (Exception e) {
+            response = new ResponseEntity<Message>(new Message(ConfigConstants.ErrorMessages.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+        }
+        return (ResponseEntity<Message>) response;
+    }
+
+    @GetMapping("/get-history-with-criteria")
+    public ResponseEntity<?> getStockHistoryWithCriteria(@RequestBody StockHistorySearchCriteria searchCriteria) {
+        ResponseEntity<?> response = null;
+        try {
+            List<StockHistory> stockHistories = stockHistoryService.getStockHistoryFromCriteria(searchCriteria);
+            List<ResponseWrapper> result = new ArrayList<>();
+            stockHistories.forEach(sh -> result.add(stockHistoryMapper.toStockHistoryResponse(sh)));
+            //StockHistory  sr = new StockHistoryResponse();
+            if (ValidationUtil.isNotNull(stockHistories)) {
+                response = new ResponseEntity<List<ResponseWrapper>>(result, HttpStatus.OK);
             } else {
                 response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.STOCK_HISTORY_NOT_FOUND), HttpStatus.BAD_REQUEST);
 

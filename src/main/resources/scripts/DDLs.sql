@@ -105,3 +105,22 @@ CREATE TABLE public.brand (
 	CONSTRAINT brand_pkey PRIMARY KEY (brand_id),
 	CONSTRAINT uk_UID UNIQUE (brand_UID)
 );
+
+-- public.supplier definition
+
+-- Drop table
+
+-- DROP TABLE public.supplier;
+
+CREATE TABLE public.supplier (
+	supplier_id int4 NOT NULL,
+	created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	created_by int4 NULL DEFAULT 1,
+	updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_by int4 NULL DEFAULT 1,
+	supplier_name varchar(255) NULL,
+	address varchar(255) NULL,
+	supplier_uid varchar(255) NULL,
+	CONSTRAINT supplier_pkey PRIMARY KEY (supplier_id),
+	CONSTRAINT uk_suid UNIQUE (supplier_uid)
+);

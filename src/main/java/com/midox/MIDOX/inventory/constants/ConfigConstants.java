@@ -41,7 +41,8 @@ public class ConfigConstants {
         public static final String EMPLOYEE_NOT_FOUND = "EMPLOYEE NOT FOUND.";
         public static final String BRAND_ADDED = "BRAND ADDED SUCCESSFULLY.";
         public static final String BRAND_ADD_OPERATION_FAILED = "BRAND ADD OPERATION FAILED.";
-
+        public static final String SUPPLIER_ADDED = "SUPPLIER ADDED SUCCESSFULLY.";
+        public static final String SUPPLIER_ADD_OPERATION_FAILED = "SUPPLIER ADD OPERATION FAILED.";
     }
 
     public static final class ErrorMessages {

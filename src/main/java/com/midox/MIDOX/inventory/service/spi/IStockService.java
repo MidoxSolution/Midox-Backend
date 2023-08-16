@@ -12,6 +12,8 @@ public interface IStockService {
 
     List<Stock> getAllStocks();
 
+    Stock getStockById(Integer stockId);
+
     Stock createStock(Stock stock);
 
     public void updateStockCount(List<Stock> stock, StockHistory stockHistory);

@@ -12,7 +12,7 @@ import lombok.*;
 @Entity
 @Builder
 @Table(name = "supplier")
-public class Supplier {
+public class Supplier extends AbstractDataEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "supplier_id_generator")
     @SequenceGenerator(name = "supplier_id_generator", sequenceName = "supplier_sequence", allocationSize = 1)
@@ -22,4 +22,16 @@ public class Supplier {
     @NonNull
     @Column(name = "supplier_name")
     private String supplierName;
+
+   @NonNull
+    String address;
+
+    @NonNull
+    @Column(name = "supplier_UID")
+    String supplierUID;
+
+    @Override
+    public void setDefaultValues(){
+        super.setDefaultValues();
+    }
 }

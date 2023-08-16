@@ -16,7 +16,9 @@ public interface IGroupService {
 
     public Boolean editGroupEntity(GroupEntity groupEntity);
 
-    public Map<GroupMaster, List<GroupEntity>> getAllGroupWithEntities();
+    public Map<String, List<GroupEntity>> getAllGroupWithEntities();
+
+    public Map<String, GroupEntity> getEntitiesMap();
 
     public List<GroupEntity> getAllEntitiesForGroupMaster(String groupMasterCd);
 

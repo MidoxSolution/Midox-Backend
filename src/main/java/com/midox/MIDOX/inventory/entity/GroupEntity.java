@@ -1,6 +1,7 @@
 package com.midox.MIDOX.inventory.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,6 +17,19 @@ import java.sql.Timestamp;
 @Builder
 // create similar entity for drop_type - which would act as a group key
 public class GroupEntity extends AbstractDataEntity {
+
+    public GroupEntity(Integer entityId, String entityCd, String parentEntityCd, String masterCd, String displayValue, String parentDisplayValue, Timestamp createdAt, Timestamp updatedAt, Integer createdBy, Integer updatedBy){
+        this.entityId = entityId;
+        this.entityCd = entityCd;
+        this.parentEntityCd = parentEntityCd;
+        this.masterCd = masterCd;
+        this.displayValue = displayValue;
+        this.parentDisplayValue = parentDisplayValue;
+        this.setCreatedBy(createdBy);
+        this.setCreatedAt(createdAt);
+        this.setUpdatedBy(updatedBy);
+        this.setUpdatedAt(updatedAt);
+    }
 
 
     @Id
@@ -42,4 +56,9 @@ public class GroupEntity extends AbstractDataEntity {
     @NonNull
     @Column(name = "display_value")
     private String displayValue;
+
+    @Transient
+    //@JsonBackReference
+    //@JsonTypeResolver()
+    private String parentDisplayValue;
 }

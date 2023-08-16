@@ -3,24 +3,27 @@ package com.midox.MIDOX.inventory.service.api;
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.GroupMaster;
 import com.midox.MIDOX.inventory.entity.GroupEntity;
+import com.midox.MIDOX.inventory.repository.GroupEntityJDBC;
 import com.midox.MIDOX.inventory.repository.GroupEntityRepository;
 import com.midox.MIDOX.inventory.repository.GroupMasterRepository;
 import com.midox.MIDOX.inventory.service.spi.IGroupService;
 import com.midox.MIDOX.inventory.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class GroupServiceImpl implements IGroupService {
     private final GroupEntityRepository groupEntityRepo;
     private final GroupMasterRepository groupMasterRepo;
+    private final GroupEntityJDBC groupEntityJDBC;
 
     private ConfigConstants constants;
 
@@ -58,11 +61,10 @@ public class GroupServiceImpl implements IGroupService {
     }
 
     @Override
-    public Map<GroupMaster, List<GroupEntity>> getAllGroupWithEntities() {
-        List<GroupEntity> optionsList = groupEntityRepo.findAll();
-        if (ValidationUtil.isNotNull(optionsList)) {
-            //return optionsList.stream().distinct().collect(Collectors.groupingBy(GroupEntity::getGenericGroupType));
-            return null;
+    public Map<String, List<GroupEntity>> getAllGroupWithEntities() {
+        List<GroupEntity> entities = groupEntityRepo.findAll();
+        if (ValidationUtil.isNotNull(entities)) {
+            return entities.stream().distinct().collect(Collectors.groupingBy(GroupEntity::getMasterCd));
         } else {
             return Collections.EMPTY_MAP;
         }
@@ -70,8 +72,32 @@ public class GroupServiceImpl implements IGroupService {
     }
 
     @Override
+    public Map<String, GroupEntity> getEntitiesMap() {
+        List<GroupEntity> entities = groupEntityRepo.findAll();
+        // = new HashMap<>();
+        if (ValidationUtil.isNotNull(entities)) {
+            Map<String, GroupEntity>  entityMap = entities.stream().distinct().collect(Collectors.toMap(GroupEntity::getEntityCd,  Function.identity()));
+             entityMap.values().stream().forEach(e -> {
+                     if(ValidationUtil.isNotNull(e.getParentEntityCd())) {
+                         e.setParentDisplayValue(entityMap.get(e.getParentEntityCd()).getDisplayValue());
+                     }}
+             );
+             return entityMap;
+        } else {
+            return Collections.EMPTY_MAP;
+        }
+    }
+
+    @Override
     public List<GroupEntity> getAllEntitiesForGroupMaster(String groupMasterCd){
-        List<GroupEntity> entities = groupEntityRepo.findAllForGroupMasterCd(groupMasterCd);
+        List<GroupEntity> result = new ArrayList<>();
+        List<GroupEntity> entities = groupEntityJDBC.findAllForGroupMasterCd(groupMasterCd);
+        /*for (Object[] o : entities){
+            GroupEntity g = (GroupEntity) o[0];
+            g.setParentDisplayValue((String) o[1]);
+            result.add(g);
+
+        }*/
         return entities;
     }
 

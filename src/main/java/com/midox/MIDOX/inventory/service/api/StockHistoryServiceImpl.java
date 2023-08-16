@@ -2,6 +2,7 @@ package com.midox.MIDOX.inventory.service.api;
 
 import com.midox.MIDOX.inventory.entity.Stock;
 import com.midox.MIDOX.inventory.entity.StockHistory;
+import com.midox.MIDOX.inventory.models.StockHistorySearchCriteria;
 import com.midox.MIDOX.inventory.repository.StockHistoryRepository;
 import com.midox.MIDOX.inventory.repository.StockRepository;
 import com.midox.MIDOX.inventory.service.spi.IStockHistoryService;
@@ -50,6 +51,11 @@ public class StockHistoryServiceImpl implements IStockHistoryService {
     @Override
     public List<StockHistory> getStockHistories(int id) {
         return stockHistoryRepo.findAllByStockId(id);
+    }
+
+    public List<StockHistory> getStockHistoryFromCriteria(StockHistorySearchCriteria searchCriteria){
+
+        return stockHistoryRepo.findAllBySearchCriteria(searchCriteria.getStockId(), searchCriteria.getFromDate(), searchCriteria.getToDate());
     }
 
     @Override

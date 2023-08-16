@@ -69,3 +69,16 @@ CREATE SEQUENCE public.brand_sequence
 	START 1
 	CACHE 1
 	NO CYCLE;
+
+
+-- public.supplier_sequence definition
+
+-- DROP SEQUENCE public.supplier_sequence;
+
+CREATE SEQUENCE public.supplier_sequence
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;

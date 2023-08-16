@@ -24,10 +24,10 @@ public class StockHistory extends AbstractDataEntity {
     private Integer stockHistoryId;
 
     @NonNull
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    //@JsonBackReference
+    //@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stock_id")
-    private Stock stock;
+    private Integer stockId;
 
     @Nullable
     @Column(name = "bill_no")

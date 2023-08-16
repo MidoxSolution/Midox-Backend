@@ -43,7 +43,7 @@ public class StockServiceImpl implements IStockService {
                 found = createStock(stock);
             }
             StockHistory history = stockModel.getStockHistory();
-            history.setStock(found);
+            history.setStockId(found.getStockId());
             stockHistoryService.createStockHistory(history);
             found.setAvailableQuantity(found.getAvailableQuantity() + history.getQuantity());
             stockRepo.saveAndFlush(found);
@@ -61,6 +61,11 @@ public class StockServiceImpl implements IStockService {
             stocks.add(stock);
         });*/
         return stockList;
+    }
+
+    @Override
+    public Stock getStockById(Integer stockId){
+        return stockRepo.findById(stockId).get();
     }
 
     @Override
