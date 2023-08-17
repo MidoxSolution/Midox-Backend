@@ -68,6 +68,12 @@ public class Employee extends AbstractDataEntity {
     @Enumerated(EnumType.STRING)
     private Designation designation;
 
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "description")
+    private String description;
+
     @Override
     public void setDefaultValues(){
         super.setDefaultValues();

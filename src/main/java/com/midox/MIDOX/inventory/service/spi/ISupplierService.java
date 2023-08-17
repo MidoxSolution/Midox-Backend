@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ISupplierService {
     Supplier addSupplier(Supplier supplier);
-    List<Supplier> getSuppliersByName(String supplierName);
+    List<Supplier> getSuppliersByCriteria(String supplierName, Integer id);
 
     Supplier getSupplierById(Integer supplierId);
 }

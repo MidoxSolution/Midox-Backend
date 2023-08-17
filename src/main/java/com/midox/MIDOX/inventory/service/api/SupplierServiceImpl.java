@@ -29,8 +29,8 @@ public class SupplierServiceImpl implements ISupplierService {
     }
 
     @Override
-    public List<Supplier> getSuppliersByName(String supplierName){
-        return  supplierRepo.findSupplierByName(supplierName);
+    public List<Supplier> getSuppliersByCriteria(String supplierName, Integer supplierId){
+        return  supplierRepo.findSupplierByName(supplierName, supplierId);
     }
 
     @Override

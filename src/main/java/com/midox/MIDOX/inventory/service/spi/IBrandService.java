@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface IBrandService {
     Brand addBrand(Brand brand);
-    List<Brand> getBrandsByName(String brandName);
+    List<Brand> getBrandsByCriteria(String brandName, Integer brandId);
     Brand getBrandById(Integer brandId);
 }

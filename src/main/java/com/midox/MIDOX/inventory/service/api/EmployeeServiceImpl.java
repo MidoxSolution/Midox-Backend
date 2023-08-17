@@ -31,7 +31,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public List<Employee> getEmployeesByName(String empName){
-        return  employeeRepo.findEmployeesByName(empName);
+    public List<Employee> getEmployeesByCriteria(String empName, Integer empId){
+        return  employeeRepo.findEmployeesByName(empName, empId);
     }
 }

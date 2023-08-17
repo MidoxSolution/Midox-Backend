@@ -2,6 +2,7 @@ package com.midox.MIDOX.inventory.controller;
 
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.Brand;
+import com.midox.MIDOX.inventory.models.GenericSearchCriteria;
 import com.midox.MIDOX.inventory.service.spi.IBrandService;
 import com.midox.MIDOX.inventory.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,11 @@ public class BrandController {
         return response;
     }
 
-    @GetMapping("/get-brands/{brandName}")
-    public ResponseEntity<List<Brand>> getBrands(@PathVariable String brandName) {
+    @GetMapping("/get-brands")
+    public ResponseEntity<List<Brand>> getBrands(@RequestBody GenericSearchCriteria searchCriteria) {
         ResponseEntity<List<Brand>> response = null;
         try {
-            List<Brand> brands = brandService.getBrandsByName(brandName);
+            List<Brand> brands = brandService.getBrandsByCriteria(searchCriteria.getName(), searchCriteria.getId());
             response = new ResponseEntity<List<Brand>>(brands, HttpStatus.OK);
         } catch (Exception e) {
             response = new ResponseEntity<List<Brand>>(new ArrayList<>(), HttpStatus.OK);

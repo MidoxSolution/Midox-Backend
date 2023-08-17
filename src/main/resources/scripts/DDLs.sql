@@ -34,8 +34,8 @@ CREATE TABLE public.group_entity (
 	parent_entity_cd varchar(255) NULL,
 	CONSTRAINT group_entity_pkey PRIMARY KEY (entity_id),
 	CONSTRAINT uk_entity UNIQUE (entity_cd),
-	-- To be amended at server
-	CONSTRAINT group_entity_un_dis UNIQUE (display_value, master_cd)
+	-- To be amended at server - Done
+	CONSTRAINT group_entity_un_dis UNIQUE (display_value, master_cd, parent_entity_cd)
 );
 
 -- public.stock definition
@@ -57,7 +57,7 @@ CREATE TABLE public.stock (
 	available_quantity float8 NULL,
 	CONSTRAINT stock_pkey PRIMARY KEY (stock_id),
 	CONSTRAINT stock_un UNIQUE (material_cd, color_fabric_cd, subcategory_cd)
-	-- To be amended in server DB
+	-- To be amended in server DB -- Done
 	CONSTRAINT stock_fk FOREIGN KEY (color_fabric_cd) REFERENCES public.group_entity(entity_cd),
     	CONSTRAINT stock_fk_1 FOREIGN KEY (material_cd) REFERENCES public.group_entity(entity_cd),
     	CONSTRAINT stock_fk_2 FOREIGN KEY (subcategory_cd) REFERENCES public.group_entity(entity_cd),
@@ -81,7 +81,7 @@ CREATE TABLE public.stock_history (
 	CONSTRAINT stock_history_pkey PRIMARY KEY (stock_history_id),
 	CONSTRAINT fk_stock FOREIGN KEY (stock_id) REFERENCES public.stock(stock_id)
 );
--- To be amended in server DB
+-- To be amended in server DB -- Done
 ALTER TABLE public.stock_history ALTER COLUMN bill_date TYPE date USING bill_date::date;
 
 ------------------------------------------------------- First Draft -----------------------------
@@ -143,3 +143,15 @@ CREATE TABLE public.supplier (
 	CONSTRAINT supplier_pkey PRIMARY KEY (supplier_id),
 	CONSTRAINT uk_suid UNIQUE (supplier_uid)
 );
+
+------------------------------------------------------- First Draft -----------------------------
+
+ALTER TABLE public.supplier ADD email varchar NULL;
+ALTER TABLE public.supplier ADD description varchar(255) NULL;
+
+
+ALTER TABLE public.brand ADD email varchar NULL;
+ALTER TABLE public.brand ADD description varchar(255) NULL;
+
+ALTER TABLE public.employee ADD email varchar NULL;
+ALTER TABLE public.employee ADD description varchar(255) NULL;

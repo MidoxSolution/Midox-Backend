@@ -41,6 +41,12 @@ public class Supplier extends AbstractDataEntity{
     @Enumerated(EnumType.STRING)
     private TextileEnum.Status status;
 
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "description")
+    private String description;
+
     @Override
     public void setDefaultValues(){
         super.setDefaultValues();

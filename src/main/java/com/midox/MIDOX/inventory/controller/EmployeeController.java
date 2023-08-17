@@ -2,7 +2,7 @@ package com.midox.MIDOX.inventory.controller;
 
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.Employee;
-import com.midox.MIDOX.inventory.entity.Supplier;
+import com.midox.MIDOX.inventory.models.GenericSearchCriteria;
 import com.midox.MIDOX.inventory.service.spi.IEmployeeService;
 import com.midox.MIDOX.inventory.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,11 +51,11 @@ public class EmployeeController {
         return response;
     }
 
-    @GetMapping("/get-employees/{empName}")
-    public ResponseEntity<List<Employee>> getEmployees(@PathVariable String empName) {
+    @GetMapping("/get-employees")
+    public ResponseEntity<List<Employee>> getEmployees(@RequestBody GenericSearchCriteria searchCriteria) {
         ResponseEntity<List<Employee>> response = null;
         try {
-            List<Employee> employees = employeeService.getEmployeesByName(empName);
+            List<Employee> employees = employeeService.getEmployeesByCriteria(searchCriteria.getName(), searchCriteria.getId());
             response = new ResponseEntity<List<Employee>>(employees, HttpStatus.OK);
         } catch (Exception e) {
             response = new ResponseEntity<List<Employee>>(new ArrayList<>(), HttpStatus.OK);

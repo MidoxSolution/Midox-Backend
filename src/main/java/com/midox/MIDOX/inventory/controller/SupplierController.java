@@ -2,6 +2,7 @@ package com.midox.MIDOX.inventory.controller;
 
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.Supplier;
+import com.midox.MIDOX.inventory.models.GenericSearchCriteria;
 import com.midox.MIDOX.inventory.service.spi.ISupplierService;
 import com.midox.MIDOX.inventory.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,11 @@ public class SupplierController {
         return response;
     }
 
-    @GetMapping("/get-suppliers/{supplierName}")
-    public ResponseEntity<List<Supplier>> getSuppliers(@PathVariable String supplierName) {
+    @GetMapping("/get-suppliers")
+    public ResponseEntity<List<Supplier>> getSuppliers(@RequestBody GenericSearchCriteria searchCriteria) {
         ResponseEntity<List<Supplier>> response = null;
         try {
-            List<Supplier> suppliers = supplierService.getSuppliersByName(supplierName);
+            List<Supplier> suppliers = supplierService.getSuppliersByCriteria(searchCriteria.getName(), searchCriteria.getId());
             response = new ResponseEntity<List<Supplier>>(suppliers, HttpStatus.OK);
         } catch (Exception e) {
             response = new ResponseEntity<List<Supplier>>(new ArrayList<>(), HttpStatus.OK);

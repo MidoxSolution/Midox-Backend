@@ -1,7 +1,6 @@
 package com.midox.MIDOX.inventory.service.api;
 
 import com.midox.MIDOX.inventory.entity.Brand;
-import com.midox.MIDOX.inventory.entity.Supplier;
 import com.midox.MIDOX.inventory.repository.BrandRepository;
 import com.midox.MIDOX.inventory.service.spi.IBrandService;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +28,8 @@ public class BrandServiceImpl implements IBrandService {
     }
 
     @Override
-    public List<Brand> getBrandsByName(String brandName){
-        return  brandRepo.findBrandsByBrandName(brandName);
+    public List<Brand> getBrandsByCriteria(String brandName, Integer brandId){
+        return  brandRepo.findBrandsByCriteria(brandName, brandId);
     }
 
     @Override
