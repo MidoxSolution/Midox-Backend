@@ -1,12 +1,15 @@
 package com.midox.MIDOX.inventory.service.api;
 
 import com.midox.MIDOX.inventory.entity.Brand;
+import com.midox.MIDOX.inventory.entity.Supplier;
 import com.midox.MIDOX.inventory.repository.BrandRepository;
 import com.midox.MIDOX.inventory.service.spi.IBrandService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,14 +22,20 @@ public class BrandServiceImpl implements IBrandService {
     BrandRepository brandRepo;
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public Brand addBrand(Brand brand){
         brand.setDefaultValues();
         return brandRepo.saveAndFlush(brand);
     }
 
     @Override
-    public List<Brand> getBrandByName(String brandName){
+    public List<Brand> getBrandsByName(String brandName){
         return  brandRepo.findBrandsByBrandName(brandName);
+    }
+
+    @Override
+    public Brand getBrandById(Integer brand){
+        return  brandRepo.findById(brand).get();
     }
 
 }

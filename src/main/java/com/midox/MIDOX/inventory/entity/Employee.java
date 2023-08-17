@@ -38,6 +38,19 @@ public class Employee extends AbstractDataEntity {
     @Column(name = "emp_dob")
     private Date empDOB;
 
+    @NonNull
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    @NonNull
+    @Column(name = "contact_no")
+    private String contactNo;
+
+    @NonNull
+    @Column(name = "address")
+    private String address;
+
     // Gender
 
     // Mobile no
@@ -51,6 +64,7 @@ public class Employee extends AbstractDataEntity {
     @Column(name = "identification_no")
     private String identificationNo;
 
+    @NonNull
     @Enumerated(EnumType.STRING)
     private Designation designation;
 

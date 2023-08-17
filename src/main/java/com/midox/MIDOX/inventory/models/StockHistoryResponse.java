@@ -20,6 +20,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Getter
@@ -28,7 +29,7 @@ public class StockHistoryResponse extends AbstractDataEntity implements Response
 
     private Integer stockHistoryId;
 
-    private Stock stockDetails;
+    private StockResponse stockDetails;
 
     private String billNo;
 
@@ -36,7 +37,7 @@ public class StockHistoryResponse extends AbstractDataEntity implements Response
 
     private Double amount;
 
-    private Timestamp billDate;
+    private Date billDate;
 
 
     Supplier supplierDetails;

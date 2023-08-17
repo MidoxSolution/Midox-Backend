@@ -3,8 +3,11 @@ package com.midox.MIDOX.inventory.controller;
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.Stock;
 import com.midox.MIDOX.inventory.models.StockModel;
+import com.midox.MIDOX.inventory.models.StockResponse;
 import com.midox.MIDOX.inventory.service.spi.IStockService;
+import com.midox.MIDOX.inventory.util.Mapper.StockMapper;
 import com.midox.MIDOX.inventory.util.Message;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin()
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/stock")
 public class StockController {
     @Autowired
     private IStockService stockService;
+
+    @Autowired
+    private final StockMapper stockMapper;
 
     @GetMapping(value = {"/", "/home","/test"})
     public ResponseEntity<Message> testApp() {
@@ -40,13 +47,15 @@ public class StockController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<Stock>> viewStocks() {
-        ResponseEntity<List<Stock>> response = null;
+    public ResponseEntity<List<StockResponse>> viewStocks() {
+        ResponseEntity<List<StockResponse>> response = null;
         try {
             List<Stock> stockList = stockService.getAllStocks();
-            response = new ResponseEntity<>(new ArrayList<>(stockList), HttpStatus.OK);
+            List<StockResponse> result = new ArrayList<>();
+            stockList.forEach(s -> result.add(stockMapper.toStockResponse(s)));
+            response = new ResponseEntity<>(new ArrayList<>(result), HttpStatus.OK);
         } catch (Exception e) {
-        response = new ResponseEntity<List<Stock>>(new ArrayList(), HttpStatus.EXPECTATION_FAILED);
+        response = new ResponseEntity<List<StockResponse>>(new ArrayList(), HttpStatus.EXPECTATION_FAILED);
         e.printStackTrace();
     }
         return response;

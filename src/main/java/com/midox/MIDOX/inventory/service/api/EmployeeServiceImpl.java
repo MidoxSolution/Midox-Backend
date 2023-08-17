@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,9 +25,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
     public Optional<Employee> getEmployee(Integer employeeId) {
         Optional emp =  employeeRepo.findById(employeeId);
         return emp;
+    }
+
+    @Override
+    public List<Employee> getEmployeesByName(String empName){
+        return  employeeRepo.findEmployeesByName(empName);
     }
 }

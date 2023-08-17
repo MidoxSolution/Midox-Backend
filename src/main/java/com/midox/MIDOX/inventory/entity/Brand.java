@@ -1,5 +1,6 @@
 package com.midox.MIDOX.inventory.entity;
 
+import com.midox.MIDOX.inventory.constants.TextileEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,14 +23,26 @@ public class Brand extends AbstractDataEntity{
     String brandName;
 
     @NonNull
+    @Column
     String address;
 
     @NonNull
-    @Column(name = "brand_UID")
+    @Column(name = "brand_uid")
     String brandUID;
+
+    @Column(name = "contact_no")
+    private String contactNo;
+
+    @Column(name = "contact_person")
+    private String contactPerson;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private TextileEnum.Status status;
 
     @Override
     public void setDefaultValues(){
         super.setDefaultValues();
+        this.status = null == this.status ? TextileEnum.Status.ACTIVE : this.status;
     }
 }

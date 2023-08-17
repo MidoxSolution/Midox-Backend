@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,13 +22,14 @@ public class SupplierServiceImpl implements ISupplierService {
     SupplierRepository supplierRepo;
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public Supplier addSupplier(Supplier supplier){
         supplier.setDefaultValues();
         return supplierRepo.saveAndFlush(supplier);
     }
 
     @Override
-    public List<Supplier> getSupplierByName(String supplierName){
+    public List<Supplier> getSuppliersByName(String supplierName){
         return  supplierRepo.findSupplierByName(supplierName);
     }
 

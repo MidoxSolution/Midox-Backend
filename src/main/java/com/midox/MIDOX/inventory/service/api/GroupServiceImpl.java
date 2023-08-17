@@ -9,7 +9,6 @@ import com.midox.MIDOX.inventory.repository.GroupMasterRepository;
 import com.midox.MIDOX.inventory.service.spi.IGroupService;
 import com.midox.MIDOX.inventory.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,10 +27,12 @@ public class GroupServiceImpl implements IGroupService {
     private ConfigConstants constants;
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public Boolean createGroupEntities(List<GroupEntity> groupEntities) {
         // TODO generate entity code automatically
         groupEntities.forEach(entity -> {
             entity.setDefaultValues();
+            stampEntityCd(entity);
             groupEntityRepo.saveAndFlush(entity);
         });
         return true;
@@ -62,7 +63,7 @@ public class GroupServiceImpl implements IGroupService {
 
     @Override
     public Map<String, List<GroupEntity>> getAllGroupWithEntities() {
-        List<GroupEntity> entities = groupEntityRepo.findAll();
+        List<GroupEntity> entities = groupEntityJDBC.findAllGroupEntities(null);
         if (ValidationUtil.isNotNull(entities)) {
             return entities.stream().distinct().collect(Collectors.groupingBy(GroupEntity::getMasterCd));
         } else {
@@ -91,7 +92,7 @@ public class GroupServiceImpl implements IGroupService {
     @Override
     public List<GroupEntity> getAllEntitiesForGroupMaster(String groupMasterCd){
         List<GroupEntity> result = new ArrayList<>();
-        List<GroupEntity> entities = groupEntityJDBC.findAllForGroupMasterCd(groupMasterCd);
+        List<GroupEntity> entities = groupEntityJDBC.findAllGroupEntities(groupMasterCd);
         /*for (Object[] o : entities){
             GroupEntity g = (GroupEntity) o[0];
             g.setParentDisplayValue((String) o[1]);
@@ -101,5 +102,17 @@ public class GroupServiceImpl implements IGroupService {
         return entities;
     }
 
+    private void stampEntityCd(GroupEntity entity){
+        List existingEntities = groupEntityRepo.findAllForGroupMasterCd(entity.getMasterCd());
+        GroupMaster master = groupMasterRepo.findByMasterCd(entity.getMasterCd());
+        String prefix = master.getMasterPrefix();
+        String name = entity.getDisplayValue().replaceAll(" ", "").toUpperCase();
+        Long seq = groupEntityRepo.getNextValEntitySequence();
+        String suffix = name.substring(0,3)+seq;
+        entity.setEntityCd(prefix+suffix);
+
+
+        //return null;
+    }
 // would be better to keep these also configurable - this would be part of the drop_type thins I mentioned in Generic Options
 }

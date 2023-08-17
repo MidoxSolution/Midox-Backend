@@ -1,5 +1,6 @@
 package com.midox.MIDOX.inventory.entity;
 
+import com.midox.MIDOX.inventory.constants.TextileEnum;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,11 +28,22 @@ public class Supplier extends AbstractDataEntity{
     String address;
 
     @NonNull
-    @Column(name = "supplier_UID")
+    @Column(name = "supplier_uid")
     String supplierUID;
+
+    @Column(name = "contact_no")
+    private String contactNo;
+
+    @Column(name = "contact_person")
+    private String contactPerson;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private TextileEnum.Status status;
 
     @Override
     public void setDefaultValues(){
         super.setDefaultValues();
+        this.status = null == this.status ? TextileEnum.Status.ACTIVE : this.status;
     }
 }

@@ -1,7 +1,6 @@
 package com.midox.MIDOX.inventory.controller;
 
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
-import com.midox.MIDOX.inventory.entity.Brand;
 import com.midox.MIDOX.inventory.entity.Supplier;
 import com.midox.MIDOX.inventory.service.spi.ISupplierService;
 import com.midox.MIDOX.inventory.util.Message;
@@ -33,14 +32,27 @@ public class SupplierController {
         return response;
     }
 
-    @GetMapping("/get-supplier/{supplierName}")
-    public ResponseEntity<List<Supplier>> getBrand(@PathVariable String supplierName) {
+    @GetMapping("/get-suppliers/{supplierName}")
+    public ResponseEntity<List<Supplier>> getSuppliers(@PathVariable String supplierName) {
         ResponseEntity<List<Supplier>> response = null;
         try {
-            List<Supplier> suppliers = supplierService.getSupplierByName(supplierName);
+            List<Supplier> suppliers = supplierService.getSuppliersByName(supplierName);
             response = new ResponseEntity<List<Supplier>>(suppliers, HttpStatus.OK);
         } catch (Exception e) {
             response = new ResponseEntity<List<Supplier>>(new ArrayList<>(), HttpStatus.OK);
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    @GetMapping("/get/{supplierId}")
+    public ResponseEntity<Supplier> getSupplierDetails(@PathVariable Integer supplierId) {
+        ResponseEntity<Supplier> response = null;
+        try {
+            Supplier supplier = supplierService.getSupplierById(supplierId);
+            response = new ResponseEntity<Supplier>(supplier, HttpStatus.OK);
+        } catch (Exception e) {
+            response = new ResponseEntity<Supplier>(new Supplier(), HttpStatus.OK);
             e.printStackTrace();
         }
         return response;

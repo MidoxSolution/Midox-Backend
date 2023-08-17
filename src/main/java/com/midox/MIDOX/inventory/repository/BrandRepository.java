@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface BrandRepository extends JpaRepository<Brand, Integer> {
 
-    String findAllByBrandNameQuery = "select * from brand where brand_name like %:brand_name%";
+    String findAllByBrandNameQuery = "select * from brand where brand_name ILIKE %:brand_name%";
 
     @Query(value = findAllByBrandNameQuery, nativeQuery = true)
     List<Brand> findBrandsByBrandName(@Param("brand_name") String brandName);

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -39,4 +40,10 @@ public interface GroupEntityRepository extends JpaRepository<GroupEntity, Intege
 
     @Query(value = findGroupEntityByEntityCdQuery, nativeQuery = true)
     GroupEntity findGroupEntityByEntityCd(@Param("entity_cd") String entityCd);
+
+    @Query(value = "SELECT currentval('entity_sequence')", nativeQuery = true)
+    BigDecimal currentValGet();
+
+    @Query(value = "SELECT nextval('entity_sequence')", nativeQuery = true)
+    Long getNextValEntitySequence();
 }

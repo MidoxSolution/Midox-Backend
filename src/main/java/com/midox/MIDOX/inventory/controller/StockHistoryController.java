@@ -45,6 +45,7 @@ public class StockHistoryController {
     }
 
     @GetMapping("/get/{id}")
+    @Deprecated
     public ResponseEntity<?> getStockHistory(@PathVariable int id) {
         ResponseEntity<?> response = null;
         try {

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface SupplierRepository extends JpaRepository<Supplier, Integer> {
 
-    String findAllByNameQuery = "select * from supplier where supplier_name like %:supplier_name%";
+    String findAllByNameQuery = "select * from supplier where supplier_name ILIKE %:supplier_name%";
 
     @Query(value = findAllByNameQuery, nativeQuery = true)
     List<Supplier> findSupplierByName(@Param("supplier_name") String supplierName);

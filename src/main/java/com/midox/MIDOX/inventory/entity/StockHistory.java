@@ -5,6 +5,7 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Getter
@@ -41,7 +42,7 @@ public class StockHistory extends AbstractDataEntity {
 
     @Nullable
     @Column(name = "bill_date")
-    private Timestamp billDate;
+    private Date billDate;
 
     @Column(name = "supplier_id")
     private Integer supplierId;
@@ -49,6 +50,7 @@ public class StockHistory extends AbstractDataEntity {
     @Override
     public void setDefaultValues(){
         super.setDefaultValues();
-        this.supplierId = 0 == this.supplierId? 1 : this.supplierId;
+        this.supplierId = (null == this.supplierId || 0 == this.supplierId)? 1 : this.supplierId;
+        this.billDate = null == this.billDate? new Date(System.currentTimeMillis()) : this.billDate;
     }
 }
