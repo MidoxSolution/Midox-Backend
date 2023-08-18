@@ -25,6 +25,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Employee editEmployee(Employee employee) {
+        return employeeRepo.saveAndFlush(employee);
+    }
+
+    @Override
     public Optional<Employee> getEmployee(Integer employeeId) {
         Optional emp =  employeeRepo.findById(employeeId);
         return emp;

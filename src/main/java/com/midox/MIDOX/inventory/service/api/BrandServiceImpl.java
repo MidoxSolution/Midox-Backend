@@ -28,6 +28,12 @@ public class BrandServiceImpl implements IBrandService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Brand editBrand(Brand brand){
+        return brandRepo.saveAndFlush(brand);
+    }
+
+    @Override
     public List<Brand> getBrandsByCriteria(String brandName, Integer brandId){
         return  brandRepo.findBrandsByCriteria(brandName, brandId);
     }

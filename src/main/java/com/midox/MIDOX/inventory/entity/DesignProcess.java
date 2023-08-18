@@ -4,33 +4,35 @@ import com.midox.MIDOX.inventory.constants.TextileEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Entity
 @Builder
-public class Design extends AbstractDataEntity{
+public class DesignProcess extends AbstractDataEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "design_id_generator")
-    @SequenceGenerator(name = "design_id_generator", sequenceName = "design_sequence", allocationSize = 1)
-    @Column(name = "design_id", unique = true)
-    private Integer designId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "design_process_id_generator")
+    @SequenceGenerator(name = "design_process_id_generator", sequenceName = "design_process_sequence", allocationSize = 1)
+    @Column(name = "process_id", unique = true)
+    private Integer processId;
 
     @NonNull
-    @Column(name = "design_no")
-    String designNo;
+    @Column(name = "design_id")
+    Integer designId;
 
     @NonNull
-    @Column(name = "brand_id")
-    String brandId;
+    @Column(name = "process_cd")
+    String processCd;
 
     @NonNull
-    @Column(name = "product_cd")
-    String productCd;
+    @Column
+    Integer priority;
+
+    @NonNull
+    @Column(name = "rate_per_peice")
+    private Double ratePerPeice;
 
     @Column(name = "details")
     String details;
@@ -38,9 +40,6 @@ public class Design extends AbstractDataEntity{
     @Column
     @Enumerated(EnumType.STRING)
     private TextileEnum.Status status;
-
-    @Transient
-    List<DesignProcess> processes;
 
     @Override
     public void setDefaultValues(){

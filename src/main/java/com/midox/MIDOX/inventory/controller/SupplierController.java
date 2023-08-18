@@ -21,7 +21,7 @@ public class SupplierController {
     ISupplierService supplierService;
 
     @PostMapping("/add")
-    public ResponseEntity<Message> addBrand(@RequestBody Supplier supplier) {
+    public ResponseEntity<Message> addSupplier(@RequestBody Supplier supplier) {
         ResponseEntity<Message> response = null;
         try {
             supplierService.addSupplier(supplier);
@@ -33,7 +33,20 @@ public class SupplierController {
         return response;
     }
 
-    @GetMapping("/get-suppliers")
+    @PostMapping("/edit")
+    public ResponseEntity<Message> editSupplier(@RequestBody Supplier supplier) {
+        ResponseEntity<Message> response = null;
+        try {
+            supplierService.editSupplier(supplier);
+            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.SUPPLIER_ADDED), HttpStatus.CREATED);
+        } catch (Exception e) {
+            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.SUPPLIER_ADD_OPERATION_FAILED), HttpStatus.OK);
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    @PostMapping("/get-suppliers")
     public ResponseEntity<List<Supplier>> getSuppliers(@RequestBody GenericSearchCriteria searchCriteria) {
         ResponseEntity<List<Supplier>> response = null;
         try {
@@ -58,4 +71,6 @@ public class SupplierController {
         }
         return response;
     }
+
+    // TODO implement delete api - should be soft delete
 }

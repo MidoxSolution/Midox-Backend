@@ -29,6 +29,12 @@ public class SupplierServiceImpl implements ISupplierService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Supplier editSupplier(Supplier supplier){
+        return supplierRepo.saveAndFlush(supplier);
+    }
+
+    @Override
     public List<Supplier> getSuppliersByCriteria(String supplierName, Integer supplierId){
         return  supplierRepo.findSupplierByName(supplierName, supplierId);
     }

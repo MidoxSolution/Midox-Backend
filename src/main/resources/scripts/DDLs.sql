@@ -155,3 +155,39 @@ ALTER TABLE public.brand ADD description varchar(255) NULL;
 
 ALTER TABLE public.employee ADD email varchar NULL;
 ALTER TABLE public.employee ADD description varchar(255) NULL;
+
+------------------------------------------------------- Second Draft -----------------------------
+
+CREATE TABLE public.design (
+	design_id int4 NOT NULL,
+	created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	created_by int4 NULL DEFAULT 1,
+	updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_by int4 NULL DEFAULT 1,
+	brand_id int4 NOT NULL,
+	desgin_no varchar(255) not NULL,
+	product_cd varchar(255) NOT NULL,
+	details varchar(255) null,
+	status varchar NOT NULL,
+	CONSTRAINT design_pkey PRIMARY KEY (design_id),
+	CONSTRAINT design_un UNIQUE (brand_id, desgin_no)
+);
+
+CREATE TABLE public.design_process (
+	process_id int4 NOT NULL,
+	design_id int4 NOT NULL,
+	created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	created_by int4 NULL DEFAULT 1,
+	updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_by int4 NULL DEFAULT 1,
+	process_cd varchar(255) NOT NULL,
+	priority int4 not null,
+	rate_per_peice float8 not null,
+	details varchar(255) null,
+	status varchar NOT NULL,
+	CONSTRAINT design_process_pkey PRIMARY KEY (process_id),
+    CONSTRAINT design_process_un UNIQUE (design_id, process_cd),
+    CONSTRAINT design_process_un2 UNIQUE (design_id, priority, status),
+    CONSTRAINT design_process_fk FOREIGN KEY (process_cd) REFERENCES public.group_entity(entity_cd)
+);
+

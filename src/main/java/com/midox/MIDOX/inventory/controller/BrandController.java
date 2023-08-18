@@ -33,7 +33,20 @@ public class BrandController {
         return response;
     }
 
-    @GetMapping("/get-brands")
+    @PostMapping("/edit")
+    public ResponseEntity<Message> editBrand(@RequestBody Brand brand) {
+        ResponseEntity<Message> response = null;
+        try {
+            brandService.editBrand(brand);
+            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.BRAND_ADDED), HttpStatus.CREATED);
+        } catch (Exception e) {
+            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.BRAND_ADD_OPERATION_FAILED), HttpStatus.OK);
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    @PostMapping("/get-brands")
     public ResponseEntity<List<Brand>> getBrands(@RequestBody GenericSearchCriteria searchCriteria) {
         ResponseEntity<List<Brand>> response = null;
         try {
@@ -58,4 +71,6 @@ public class BrandController {
         }
         return response;
     }
+
+    // TODO implement delete api - should be soft delete
 }

@@ -66,7 +66,7 @@ public class StockHistoryController {
         return (ResponseEntity<Message>) response;
     }
 
-    @GetMapping("/get-history-with-criteria")
+    @PostMapping("/get-history-with-criteria")
     public ResponseEntity<?> getStockHistoryWithCriteria(@RequestBody StockHistorySearchCriteria searchCriteria) {
         ResponseEntity<?> response = null;
         try {

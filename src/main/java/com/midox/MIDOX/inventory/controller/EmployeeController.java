@@ -34,6 +34,19 @@ public class EmployeeController {
         return response;
     }
 
+    @PostMapping("/edit")
+    public ResponseEntity<Message> editEmployee(@RequestBody Employee employee) {
+        ResponseEntity<Message> response = null;
+        try {
+            employeeService.editEmployee(employee);
+            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.EMPLOYEE_ADDED_SUCCESSFULLY), HttpStatus.OK);
+        } catch (Exception e) {
+            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.EMPLOYEE_ADD_OPERATION_FAILED), HttpStatus.OK);
+            e.printStackTrace();
+        }
+        return response;
+    }
+
     @GetMapping("/get/{employeeId}")
     public ResponseEntity<?> getEmployee(@PathVariable Integer employeeId) {
         ResponseEntity<?> response = null;
@@ -51,7 +64,7 @@ public class EmployeeController {
         return response;
     }
 
-    @GetMapping("/get-employees")
+    @PostMapping("/get-employees")
     public ResponseEntity<List<Employee>> getEmployees(@RequestBody GenericSearchCriteria searchCriteria) {
         ResponseEntity<List<Employee>> response = null;
         try {
@@ -63,5 +76,7 @@ public class EmployeeController {
         }
         return response;
     }
+
+    // TODO implement delete api - should be soft delete
 
 }
