@@ -40,15 +40,15 @@ public class DesignServiceImpl implements IDesignService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public Design addDesignWithProcess(Design design){
+    public Design addProcesses(Design design) throws Exception{
         Optional<Design> existingDesign;
         if(null == design.getDesignId()) {
-            design = createDesign(design);
+            throw new Exception("Design not found");
         }
-            existingDesign = designRepo.findById(design.getDesignId());
-            if(!existingDesign.isPresent()) {
-                design = createDesign(design);
-            }
+        existingDesign = designRepo.findById(design.getDesignId());
+        if(!existingDesign.isPresent()) {
+            throw new Exception("Design not found");
+        }
 
         Integer designId = design.getDesignId();
         List<DesignProcess> processes = design.getProcesses();
@@ -66,10 +66,10 @@ public class DesignServiceImpl implements IDesignService {
     }
 
     @Override
-    public List<Design> getDesignByCriteria(Integer desginId, String designNo, Integer brandId, String productCd){
-       List<Design> designs =  designRepo.findDesignsByCriteria(desginId, designNo, brandId, productCd);
+    public List<Design> getDesignByCriteria(Integer designId, String designNo, Integer brandId, String productCd){
+       List<Design> designs =  designRepo.findDesignsByCriteria(designId, designNo, brandId, productCd);
        designs.forEach(design -> {
-           design.setProcesses(processService.getAllProcessesForDesgin(design.getDesignId()));
+           design.setProcesses(processService.getAllProcessesForDesign(design.getDesignId()));
        });
         return designs;
     }

@@ -1,6 +1,5 @@
 package com.midox.MIDOX.inventory.service.spi;
 
-import com.midox.MIDOX.inventory.entity.Brand;
 import com.midox.MIDOX.inventory.entity.Design;
 import com.midox.MIDOX.inventory.entity.DesignProcess;
 import org.springframework.transaction.annotation.Propagation;
@@ -19,6 +18,6 @@ public interface IDesignProcessService {
     @Transactional(propagation = Propagation.REQUIRED)
     Design updateDesignProcess(Design design);
 
-    List<DesignProcess> getAllProcessesForDesgin(Integer desginId);
+    List<DesignProcess> getAllProcessesForDesign(Integer designId);
 
 }

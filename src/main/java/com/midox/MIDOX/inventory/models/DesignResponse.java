@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter @Setter
-public class DesginResponse extends AbstractDataEntity implements ResponseWrapper{
+public class DesignResponse extends AbstractDataEntity implements ResponseWrapper{
     private Integer designId;
     String designNo;
 
@@ -21,5 +21,5 @@ public class DesginResponse extends AbstractDataEntity implements ResponseWrappe
 
     private TextileEnum.Status status;
 
-    List<DesignProcess> processes;
+    List<DesignProcessResponse> processes;
 }

@@ -1,6 +1,5 @@
 package com.midox.MIDOX.inventory.service.spi;
 
-import com.midox.MIDOX.inventory.entity.Brand;
 import com.midox.MIDOX.inventory.entity.Design;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,8 +12,8 @@ public interface IDesignService {
     @Transactional(propagation = Propagation.REQUIRED)
     Design editDesign(Design design);
 
-    Design addDesignWithProcess(Design design);
+    Design addProcesses(Design design) throws Exception;
 
-    List<Design> getDesignByCriteria(Integer desginId, String designNo, Integer brandId, String productCd);
+    List<Design> getDesignByCriteria(Integer designId, String designNo, Integer brandId, String productCd);
 
 }

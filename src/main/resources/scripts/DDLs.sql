@@ -165,12 +165,12 @@ CREATE TABLE public.design (
 	updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_by int4 NULL DEFAULT 1,
 	brand_id int4 NOT NULL,
-	desgin_no varchar(255) not NULL,
+	design_no varchar(255) not NULL,
 	product_cd varchar(255) NOT NULL,
 	details varchar(255) null,
 	status varchar NOT NULL,
 	CONSTRAINT design_pkey PRIMARY KEY (design_id),
-	CONSTRAINT design_un UNIQUE (brand_id, desgin_no)
+	CONSTRAINT design_un UNIQUE (brand_id, design_no)
 );
 
 CREATE TABLE public.design_process (

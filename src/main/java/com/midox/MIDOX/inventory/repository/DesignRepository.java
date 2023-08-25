@@ -10,11 +10,11 @@ import java.util.List;
 public interface DesignRepository extends JpaRepository<Design, Integer> {
 
     String findAllByCriteriaQuery = "select * from design where (:design_no is null or design_no ILIKE %:design_no%)" +
-            " and (:desgin_id is null or desgin_id = :desgin_id) " +
+            " and (:design_id is null or design_id = :design_id) " +
             " and (:brand_id is null or brand_id = :brand_id) " +
             " and (:product_cd is null or product_cd ILIKE %:product_cd%)";
 
     @Query(value = findAllByCriteriaQuery, nativeQuery = true)
-    List<Design> findDesignsByCriteria(@Param("desgin_id") Integer desginId, @Param("design_no") String designNo, @Param("brand_id") Integer brandId, @Param("product_cd") String productCd);
+    List<Design> findDesignsByCriteria(@Param("design_id") Integer designId, @Param("design_no") String designNo, @Param("brand_id") Integer brandId, @Param("product_cd") String productCd);
 
 }

@@ -7,5 +7,5 @@ import org.mapstruct.ReportingPolicy;
 @Mapper( componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         uses = {EntityCodeMapper.class})
-public class DesginProcessMapper {
+public class DesignProcessMapper {
 }

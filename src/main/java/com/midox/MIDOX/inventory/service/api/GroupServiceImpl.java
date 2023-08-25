@@ -108,10 +108,13 @@ public class GroupServiceImpl implements IGroupService {
         String prefix = master.getMasterPrefix();
         String name = entity.getDisplayValue().replaceAll(" ", "").toUpperCase();
         Long seq = groupEntityRepo.getNextValEntitySequence();
-        String suffix = name.substring(0,3)+seq;
+        String suffix = null;
+        if(name.length()>3){
+            suffix = name.substring(0,3)+seq;
+        }else{
+            suffix = name+seq;
+        }
         entity.setEntityCd(prefix+suffix);
-
-
         //return null;
     }
 // would be better to keep these also configurable - this would be part of the drop_type thins I mentioned in Generic Options

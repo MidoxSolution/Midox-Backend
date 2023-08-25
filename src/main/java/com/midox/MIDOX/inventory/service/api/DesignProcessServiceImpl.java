@@ -1,5 +1,6 @@
 package com.midox.MIDOX.inventory.service.api;
 
+import com.midox.MIDOX.inventory.constants.TextileEnum;
 import com.midox.MIDOX.inventory.entity.Design;
 import com.midox.MIDOX.inventory.entity.DesignProcess;
 import com.midox.MIDOX.inventory.repository.DesignProcessRepository;
@@ -68,13 +69,17 @@ public class DesignProcessServiceImpl implements IDesignProcessService {
                 );
 
         currentProcesses.forEach(process -> {
+            if(null == process.getDesignId()){
+                process.setDesignId(design.getDesignId());
+            }
+            process.setDefaultValues();
             designProcessRepo.saveAndFlush(process);
         });
         return design;
     }
 
     @Override
-    public List<DesignProcess> getAllProcessesForDesgin(Integer desginId) {
-        return designProcessRepo.findAllByDesignId(desginId);
+    public List<DesignProcess> getAllProcessesForDesign(Integer designId) {
+        return designProcessRepo.findAllByDesignId(designId);
     }
 }

@@ -4,9 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter@Setter
-public class DesginSearchCriteria implements  RequestWrapper{
+public class DesignSearchCriteria implements  RequestWrapper{
 
-    Integer desginId;
+    Integer designId;
     String designNo;
     Integer brandId;
     String productCd;

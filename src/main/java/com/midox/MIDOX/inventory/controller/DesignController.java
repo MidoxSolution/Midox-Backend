@@ -1,12 +1,12 @@
 package com.midox.MIDOX.inventory.controller;
 
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
-import com.midox.MIDOX.inventory.entity.Brand;
 import com.midox.MIDOX.inventory.entity.Design;
-import com.midox.MIDOX.inventory.models.DesginSearchCriteria;
-import com.midox.MIDOX.inventory.models.GenericSearchCriteria;
+import com.midox.MIDOX.inventory.models.DesignResponse;
+import com.midox.MIDOX.inventory.models.DesignSearchCriteria;
 import com.midox.MIDOX.inventory.service.spi.IDesignProcessService;
 import com.midox.MIDOX.inventory.service.spi.IDesignService;
+import com.midox.MIDOX.inventory.util.Mapper.DesignMapper;
 import com.midox.MIDOX.inventory.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,13 +26,16 @@ public class DesignController {
     @Autowired
     IDesignProcessService designProcessService;
 
+    @Autowired
+    DesignMapper designMapper;
+
 
     @PostMapping("/add")
-    public ResponseEntity<Message> addDesign(@RequestBody Design design) {
-        ResponseEntity<Message> response = null;
+    public ResponseEntity<?> addDesign(@RequestBody Design design) {
+        ResponseEntity<?> response = null;
         try {
-            designService.addDesign(design);
-            response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.BRAND_ADDED), HttpStatus.CREATED);
+            design = designService.addDesign(design);
+            response = new ResponseEntity<Design>(design, HttpStatus.CREATED);
         } catch (Exception e) {
             response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.BRAND_ADD_OPERATION_FAILED), HttpStatus.OK);
             e.printStackTrace();
@@ -40,11 +43,11 @@ public class DesignController {
         return response;
     }
 
-    @PostMapping("/add-design-process")
-    public ResponseEntity<Message> addDesignWithProcesses(@RequestBody Design design) {
+    @PostMapping("/add-processes")
+    public ResponseEntity<Message> addProcesses(@RequestBody Design design) {
         ResponseEntity<Message> response = null;
         try {
-            designService.addDesignWithProcess(design);
+            designService.addProcesses(design);
             response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.BRAND_ADDED), HttpStatus.CREATED);
         } catch (Exception e) {
             response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.BRAND_ADD_OPERATION_FAILED), HttpStatus.OK);
@@ -81,13 +84,15 @@ public class DesignController {
     }
 
     @PostMapping("/get-designs")
-    public ResponseEntity<List<Design>> getDesigns(@RequestBody DesginSearchCriteria searchCriteria) {
-        ResponseEntity<List<Design>> response = null;
+    public ResponseEntity<List<DesignResponse>> getDesigns(@RequestBody DesignSearchCriteria searchCriteria) {
+        ResponseEntity<List<DesignResponse>> response = null;
         try {
-            List<Design> designs = designService.getDesignByCriteria(searchCriteria.getDesginId(), searchCriteria.getDesignNo(), searchCriteria.getBrandId(), searchCriteria.getProductCd());
-            response = new ResponseEntity<List<Design>>(designs, HttpStatus.OK);
+            List<Design> designs = designService.getDesignByCriteria(searchCriteria.getDesignId(), searchCriteria.getDesignNo(), searchCriteria.getBrandId(), searchCriteria.getProductCd());
+            List<DesignResponse> result = new ArrayList<>();
+            designs.forEach(d -> result.add(designMapper.toDesignResponse(d)));
+            response = new ResponseEntity<List<DesignResponse>>(result, HttpStatus.OK);
         } catch (Exception e) {
-            response = new ResponseEntity<List<Design>>(new ArrayList<>(), HttpStatus.OK);
+            response = new ResponseEntity<List<DesignResponse>>(new ArrayList<>(), HttpStatus.OK);
             e.printStackTrace();
         }
         return response;

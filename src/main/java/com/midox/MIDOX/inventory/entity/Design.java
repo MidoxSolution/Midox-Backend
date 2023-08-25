@@ -26,7 +26,7 @@ public class Design extends AbstractDataEntity{
 
     @NonNull
     @Column(name = "brand_id")
-    String brandId;
+    Integer brandId;
 
     @NonNull
     @Column(name = "product_cd")
