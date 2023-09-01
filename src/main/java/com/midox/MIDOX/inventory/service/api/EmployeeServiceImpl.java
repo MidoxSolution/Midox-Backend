@@ -31,9 +31,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public Optional<Employee> getEmployee(Integer employeeId) {
-        Optional emp =  employeeRepo.findById(employeeId);
-        return emp;
+    public Employee getEmployee(Integer employeeId) {
+        Optional<Employee> emp =  employeeRepo.findById(employeeId);
+        if(emp.isPresent()) {
+            return emp.get();
+        }
+        return null;
     }
 
     @Override

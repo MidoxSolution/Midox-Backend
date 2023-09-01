@@ -99,3 +99,6 @@ CREATE SEQUENCE public.design_process_sequence
 	START 1
 	CACHE 1
 	NO CYCLE;
+
+
+------------------------------------------------SECOND DRAFT -----------------------------------

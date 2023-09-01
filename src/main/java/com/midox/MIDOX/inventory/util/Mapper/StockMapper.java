@@ -10,7 +10,7 @@ import org.mapstruct.*;
 @Mapper( componentModel = MappingConstants.ComponentModel.SPRING,
 
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-uses = {EntityCodeMapper.class})
+uses = {EntityCodeMapper.class, EmployeeNameMapper.class})
 public abstract class StockMapper {
 
     public abstract StockResponse toStockResponse(Stock stock);

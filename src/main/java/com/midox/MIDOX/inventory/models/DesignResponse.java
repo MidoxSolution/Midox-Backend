@@ -9,11 +9,11 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter @Setter
-public class DesignResponse extends AbstractDataEntity implements ResponseWrapper{
+public class DesignResponse extends AbstractEntityResponse implements ResponseWrapper{
     private Integer designId;
     String designNo;
 
-    String brandId;
+    BrandDetails brandDetails;
 
     EntityCode productCd;
 

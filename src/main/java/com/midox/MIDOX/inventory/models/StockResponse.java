@@ -7,7 +7,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 @Getter @Setter
-public class StockResponse extends AbstractDataEntity implements ResponseWrapper{
+public class StockResponse extends AbstractEntityResponse implements ResponseWrapper{
     private Integer stockId;
 
     private EntityCode materialCd;

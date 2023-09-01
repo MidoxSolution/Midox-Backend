@@ -6,6 +6,6 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper( componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        uses = {EntityCodeMapper.class})
+        uses = {EntityCodeMapper.class, EmployeeNameMapper.class, BrandNameMapper.class})
 public class DesignProcessMapper {
 }

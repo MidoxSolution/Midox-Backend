@@ -10,7 +10,7 @@ public interface IEmployeeService {
 
     Employee editEmployee(Employee employee);
 
-    Optional<Employee> getEmployee(Integer employeeId);
+    Employee getEmployee(Integer employeeId);
 
     List<Employee> getEmployeesByCriteria(String empName, Integer id);
 

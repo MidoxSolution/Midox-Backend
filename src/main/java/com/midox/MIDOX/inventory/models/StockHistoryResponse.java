@@ -25,7 +25,7 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-public class StockHistoryResponse extends AbstractDataEntity implements ResponseWrapper {
+public class StockHistoryResponse extends AbstractEntityResponse implements ResponseWrapper {
 
     private Integer stockHistoryId;
 

@@ -51,9 +51,9 @@ public class EmployeeController {
     public ResponseEntity<?> getEmployee(@PathVariable Integer employeeId) {
         ResponseEntity<?> response = null;
         try {
-            Optional<Employee> employee = employeeService.getEmployee(employeeId);
-            if(employee.isPresent()){
-                response = new ResponseEntity<Employee>(employee.get(), HttpStatus.OK);
+            Employee employee = employeeService.getEmployee(employeeId);
+            if(null != employee){
+                response = new ResponseEntity<Employee>(employee, HttpStatus.OK);
             } else{
                 response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.EMPLOYEE_NOT_FOUND), HttpStatus.OK);
             }

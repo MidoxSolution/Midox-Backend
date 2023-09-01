@@ -1,5 +1,6 @@
 package com.midox.MIDOX.inventory.entity;
 
+import com.midox.MIDOX.inventory.constants.TextileEnum.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -24,17 +25,23 @@ public class Adda extends AbstractDataEntity{
     @Column(name = "adda_no")
     String addaNo;
 
-    @NonNull
+    /*@NonNull
     @Column(name = "brand_id")
     Integer brandId;
 
     @NonNull
     @Column(name = "product_cd")
-    String productCd;
+    String productCd;*/
 
     @NonNull
     @Column(name = "design_id")
     Integer designId;
+
+    // TODO to be discussed with Piyush - if search functionality with design no or designId
+    // Also if brand and product are actually needed
+    @NonNull
+    @Column(name = "design_no")
+    Integer designNo;
 
     @NonNull
     @Column(name = "quantity")
@@ -42,6 +49,13 @@ public class Adda extends AbstractDataEntity{
 
     @Column(name = "completion_date")
     Date completionDate;
+
+    @NonNull
+    @Enumerated(EnumType.STRING)
+    private ProcStatus status;
+
+    @Column
+    String remarks;
 
     @Override
     public void setDefaultValues(){

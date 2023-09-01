@@ -6,15 +6,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class DesignProcessResponse extends AbstractDataEntity implements ResponseWrapper{
+public class DesignProcessResponse extends AbstractEntityResponse implements ResponseWrapper{
+
+    private Integer processId;
+
     private Integer designId;
+
     EntityCode processCd;
 
 
     Integer priority;
 
 
-    private Double wages;
+    private Double ratePerPeice;
 
 
     String details;

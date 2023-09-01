@@ -21,6 +21,14 @@ public class TextileEnum {
         INACTIVE
     }
 
+    public enum ProcStatus{
+        // These entries are static and should be present in DB
+        PROC_STAT_TBS,
+        PROC_STAT_INP,
+        PROC_STAT_HOLD,
+        PROC_STAT_FIN
+    }
+
     public enum Designation{
         WORKER,
         SUPERVISOR,

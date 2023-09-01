@@ -15,7 +15,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @Mapper( componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-uses = {EntityCodeMapper.class, StockMapper.class})
+uses = {EntityCodeMapper.class, EmployeeNameMapper.class, StockMapper.class})
 public abstract class StockHistoryMapper {
 
     @Autowired
