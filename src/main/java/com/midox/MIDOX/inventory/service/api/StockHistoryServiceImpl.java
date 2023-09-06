@@ -1,21 +1,19 @@
 package com.midox.MIDOX.inventory.service.api;
 
+import com.midox.MIDOX.inventory.Exception.MidoxException;
 import com.midox.MIDOX.inventory.entity.Stock;
 import com.midox.MIDOX.inventory.entity.StockHistory;
-import com.midox.MIDOX.inventory.models.StockHistorySearchCriteria;
+import com.midox.MIDOX.inventory.models.RequestModels.StockHistorySearchCriteria;
 import com.midox.MIDOX.inventory.repository.StockHistoryRepository;
 import com.midox.MIDOX.inventory.repository.StockRepository;
 import com.midox.MIDOX.inventory.service.spi.IStockHistoryService;
 import com.midox.MIDOX.inventory.service.spi.IStockService;
-import com.midox.MIDOX.inventory.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -55,7 +53,7 @@ public class StockHistoryServiceImpl implements IStockHistoryService {
 
     public List<StockHistory> getStockHistoryFromCriteria(StockHistorySearchCriteria searchCriteria){
 
-        return stockHistoryRepo.findAllBySearchCriteria(searchCriteria.getStockId(), searchCriteria.getFromDate(), searchCriteria.getToDate());
+        return stockHistoryRepo.findAllBySearchCriteria(searchCriteria.getStockId(), searchCriteria.getAddaId(), searchCriteria.getFromDate(), searchCriteria.getToDate());
     }
 
     @Override
@@ -63,5 +61,24 @@ public class StockHistoryServiceImpl implements IStockHistoryService {
     public StockHistory createStockHistory(StockHistory stockHistory){
         stockHistory.setDefaultValues();
         return stockHistoryRepo.save(stockHistory);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public StockHistory updateStockHistory(StockHistory stockHistory) throws MidoxException {
+        if(null == stockHistory.getStockHistoryId()){
+            throw new MidoxException(MidoxException.EXCEPTION_ENTITY_DOES_NOT_EXIST);
+        }
+        stockHistory.setDefaultValues();
+        return stockHistoryRepo.saveAndFlush(stockHistory);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteStockHistory(StockHistory stockHistory) throws MidoxException {
+        if(null == stockHistory.getStockHistoryId()){
+            throw new MidoxException(MidoxException.EXCEPTION_ENTITY_DOES_NOT_EXIST);
+        }
+        stockHistoryRepo.deleteById(stockHistory.getStockHistoryId());
     }
 }

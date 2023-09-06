@@ -29,7 +29,8 @@ public class AbstractDataEntity implements Serializable, DefaultValues {
         this.createdBy = null == this.createdBy ? 1 : this.createdBy;
         this.createdAt = null == this.createdAt? new Timestamp(System.currentTimeMillis()) : this.createdAt;
         this.updatedBy = null == this.updatedBy? 1 : this.updatedBy;
-        this.updatedAt = null == this.updatedAt? new Timestamp(System.currentTimeMillis()) : this.updatedAt;
+        // always set the updatedAt as current timestamp - to cater update scenario also
+        this.updatedAt = new Timestamp(System.currentTimeMillis());
     }
 /*
     public Timestamp getCreatedAt() {

@@ -2,7 +2,7 @@ package com.midox.MIDOX.inventory.controller;
 
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.Supplier;
-import com.midox.MIDOX.inventory.models.GenericSearchCriteria;
+import com.midox.MIDOX.inventory.models.RequestModels.GenericSearchCriteria;
 import com.midox.MIDOX.inventory.service.spi.ISupplierService;
 import com.midox.MIDOX.inventory.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;

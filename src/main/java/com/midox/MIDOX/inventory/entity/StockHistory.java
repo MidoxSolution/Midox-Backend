@@ -1,12 +1,10 @@
 package com.midox.MIDOX.inventory.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -37,7 +35,7 @@ public class StockHistory extends AbstractDataEntity {
     @NonNull
     private Double quantity;
 
-    @NonNull
+    @Column
     private Double amount;
 
     @Nullable
@@ -47,10 +45,19 @@ public class StockHistory extends AbstractDataEntity {
     @Column(name = "supplier_id")
     private Integer supplierId;
 
+    @Column(name = "adda_id")
+    private Integer addaId;
+
+    @Column(name = "credit_debit_ind")
+    // C or D
+    private char creditDebitInd;
+
+
     @Override
     public void setDefaultValues(){
         super.setDefaultValues();
-        this.supplierId = (null == this.supplierId || 0 == this.supplierId)? 1 : this.supplierId;
+        this.supplierId = (null == this.supplierId) ? ((this.creditDebitInd == 'C') ? 1 : null) : this.supplierId;
+        this.addaId = (null == this.addaId) ? ((this.creditDebitInd == 'D') ? 1 : null) : this.addaId;
         this.billDate = null == this.billDate? new Date(System.currentTimeMillis()) : this.billDate;
     }
 }

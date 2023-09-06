@@ -1,11 +1,13 @@
 package com.midox.MIDOX.inventory.entity;
 
+import com.midox.MIDOX.inventory.constants.TextileEnum;
 import com.midox.MIDOX.inventory.constants.TextileEnum.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,7 +27,7 @@ public class Adda extends AbstractDataEntity{
     @Column(name = "adda_no")
     String addaNo;
 
-    /*@NonNull
+    /*@NonNull]
     @Column(name = "brand_id")
     Integer brandId;
 
@@ -37,11 +39,15 @@ public class Adda extends AbstractDataEntity{
     @Column(name = "design_id")
     Integer designId;
 
+    @NonNull
+    @Column(name = "brand_id")
+    Integer brandId;
+
     // TODO to be discussed with Piyush - if search functionality with design no or designId
     // Also if brand and product are actually needed
-    @NonNull
+    /*@NonNull
     @Column(name = "design_no")
-    Integer designNo;
+    Integer designNo;*/
 
     @NonNull
     @Column(name = "quantity")
@@ -50,16 +56,22 @@ public class Adda extends AbstractDataEntity{
     @Column(name = "completion_date")
     Date completionDate;
 
-    @NonNull
     @Enumerated(EnumType.STRING)
     private ProcStatus status;
 
     @Column
     String remarks;
 
+    @Transient
+    List<AddaMaterial> addaMaterials;
+
+    @Transient
+    List<AddaPattern> addaPatterns;
+
     @Override
     public void setDefaultValues(){
         super.setDefaultValues();
+        this.status = null == this.status ? ProcStatus.PROC_STAT_TBS : this.status;
     }
 }
 

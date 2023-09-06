@@ -1,4 +1,4 @@
-package com.midox.MIDOX.inventory.models;
+package com.midox.MIDOX.inventory.models.MapperModels;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -2,10 +2,8 @@ package com.midox.MIDOX.inventory.controller;
 
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.StockHistory;
-import com.midox.MIDOX.inventory.models.RequestWrapper;
 import com.midox.MIDOX.inventory.models.ResponseWrapper;
-import com.midox.MIDOX.inventory.models.StockHistoryResponse;
-import com.midox.MIDOX.inventory.models.StockHistorySearchCriteria;
+import com.midox.MIDOX.inventory.models.RequestModels.StockHistorySearchCriteria;
 import com.midox.MIDOX.inventory.service.spi.IStockHistoryService;
 import com.midox.MIDOX.inventory.util.Mapper.StockHistoryMapper;
 import com.midox.MIDOX.inventory.util.Message;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor

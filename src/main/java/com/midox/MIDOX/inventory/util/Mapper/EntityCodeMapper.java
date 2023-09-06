@@ -1,14 +1,9 @@
 package com.midox.MIDOX.inventory.util.Mapper;
 
 import com.midox.MIDOX.inventory.entity.GroupEntity;
-import com.midox.MIDOX.inventory.entity.Stock;
-import com.midox.MIDOX.inventory.entity.StockHistory;
-import com.midox.MIDOX.inventory.models.EntityCode;
-import com.midox.MIDOX.inventory.models.StockHistoryResponse;
+import com.midox.MIDOX.inventory.models.MapperModels.EntityCode;
 import com.midox.MIDOX.inventory.util.MapperUtils;
 import org.mapstruct.*;
-
-import java.util.Map;
 
 @Mapper( componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,

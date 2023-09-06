@@ -35,7 +35,6 @@ public class AddaBundle extends AbstractDataEntity{
     private TextileEnum.ProcStatus status;
 
 
-
     @NonNull
     @Column(name = "bundle_size")
     Integer bundleSize;

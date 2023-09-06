@@ -1,13 +1,12 @@
-package com.midox.MIDOX.inventory.models;
+package com.midox.MIDOX.inventory.models.ResponseModels;
 
-import com.midox.MIDOX.inventory.entity.AbstractDataEntity;
-import jakarta.persistence.Column;
+import com.midox.MIDOX.inventory.models.MapperModels.EntityCode;
+import com.midox.MIDOX.inventory.models.ResponseWrapper;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Getter @Setter
-public class StockResponse extends AbstractEntityResponse implements ResponseWrapper{
+public class StockResponse extends AbstractEntityResponse implements ResponseWrapper {
     private Integer stockId;
 
     private EntityCode materialCd;

@@ -1,12 +1,8 @@
 package com.midox.MIDOX.inventory.util.Mapper;
 
 import com.midox.MIDOX.inventory.entity.*;
-import com.midox.MIDOX.inventory.models.EmployeeDetails;
-import com.midox.MIDOX.inventory.models.EntityCode;
-import com.midox.MIDOX.inventory.models.StockHistoryResponse;
+import com.midox.MIDOX.inventory.models.MapperModels.EmployeeDetails;
 import com.midox.MIDOX.inventory.service.spi.IEmployeeService;
-import com.midox.MIDOX.inventory.service.spi.IStockService;
-import com.midox.MIDOX.inventory.service.spi.ISupplierService;
 import com.midox.MIDOX.inventory.util.MapperUtils;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;

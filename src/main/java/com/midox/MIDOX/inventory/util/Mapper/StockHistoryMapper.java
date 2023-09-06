@@ -3,15 +3,11 @@ package com.midox.MIDOX.inventory.util.Mapper;
 import com.midox.MIDOX.inventory.entity.Stock;
 import com.midox.MIDOX.inventory.entity.StockHistory;
 import com.midox.MIDOX.inventory.entity.Supplier;
-import com.midox.MIDOX.inventory.models.StockHistoryResponse;
-import com.midox.MIDOX.inventory.models.StockResponse;
+import com.midox.MIDOX.inventory.models.ResponseModels.StockHistoryResponse;
 import com.midox.MIDOX.inventory.service.spi.IStockService;
 import com.midox.MIDOX.inventory.service.spi.ISupplierService;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 @Mapper( componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,

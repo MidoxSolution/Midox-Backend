@@ -171,7 +171,6 @@ CREATE TABLE public.design (
 	status varchar NOT NULL,
 	CONSTRAINT design_pkey PRIMARY KEY (design_id),
 	CONSTRAINT design_un UNIQUE (brand_id, design_no)
-);
 
 CREATE TABLE public.design_process (
 	process_id int4 NOT NULL,
@@ -192,3 +191,62 @@ CREATE TABLE public.design_process (
 );
 
 ------------------------------------------------------- Third Draft -----------------------------
+
+CREATE TABLE public.adda (
+	design_id int4 NOT NULL,
+	created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	created_by int4 NULL DEFAULT 1,
+	updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_by int4 NULL DEFAULT 1,
+	adda_id int4 NOT NULL,
+	adda_no varchar(255) NOT NULL,
+	completion_date date NULL,
+	quantity float8 NOT NULL,
+	remarks varchar(255) NULL,
+	status varchar NOT NULL,
+	brand_id int4 NOT NULL,
+	CONSTRAINT adda_pkey PRIMARY KEY (adda_id),
+	CONSTRAINT adda_un UNIQUE (adda_no),
+	CONSTRAINT adda_fk FOREIGN KEY (brand_id) REFERENCES public.brand(brand_id),
+	CONSTRAINT adda_fk_1 FOREIGN KEY (design_id) REFERENCES public.design(design_id),
+	CONSTRAINT adda_fk_2 FOREIGN KEY (status) REFERENCES public.group_entity(entity_cd)
+);
+
+CREATE TABLE public.adda_material (
+	adda_material_id int4 NOT NULL,
+	created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	created_by int4 NULL DEFAULT 1,
+	updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_by int4 NULL DEFAULT 1,
+	adda_id int4 NOT NULL,
+	stock_id int4 NOT NULL,
+	quantity float8 NOT NULL,
+	CONSTRAINT material_pkey PRIMARY KEY (adda_material_id),
+	CONSTRAINT material_un UNIQUE (adda_id, stock_id),
+	CONSTRAINT adda_material_fk FOREIGN KEY (adda_id) REFERENCES public.adda(adda_id),
+	CONSTRAINT adda_material_fk_1 FOREIGN KEY (stock_id) REFERENCES public.stock(stock_id)
+);
+
+CREATE TABLE public.adda_pattern (
+	pattern_id int4 NOT NULL,
+	created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	created_by int4 NULL DEFAULT 1,
+	updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_by int4 NULL DEFAULT 1,
+	"size" varchar(255) NULL,
+	color varchar(255) NULL,
+	adda_id int4 NOT NULL,
+	bundle_size int4 NOT NULL,
+	quantity float8 NOT NULL,
+	CONSTRAINT pattern_pkey PRIMARY KEY (pattern_id),
+	CONSTRAINT pattern_un UNIQUE (adda_id, size, color),
+	CONSTRAINT adda_pattern_fk FOREIGN KEY (adda_id) REFERENCES public.adda(adda_id),
+	CONSTRAINT adda_pattern_fk_1 FOREIGN KEY ("size") REFERENCES public.group_entity(entity_cd),
+	CONSTRAINT adda_pattern_fk_2 FOREIGN KEY (color) REFERENCES public.group_entity(entity_cd)
+);
+
+ALTER TABLE public.stock_history ADD adda_id int4 NULL;
+ALTER TABLE public.stock_history ADD credit_debit_ind char NOT NULL DEFAULT 'C';
+
+ALTER TABLE public.design ADD CONSTRAINT design_fk FOREIGN KEY (brand_id) REFERENCES public.brand(brand_id);
+ALTER TABLE public.design ADD CONSTRAINT design_fk_1 FOREIGN KEY (product_cd) REFERENCES public.group_entity(entity_cd);

@@ -1,15 +1,16 @@
-package com.midox.MIDOX.inventory.models;
+package com.midox.MIDOX.inventory.models.ResponseModels;
 
 import com.midox.MIDOX.inventory.constants.TextileEnum;
-import com.midox.MIDOX.inventory.entity.AbstractDataEntity;
-import com.midox.MIDOX.inventory.entity.DesignProcess;
+import com.midox.MIDOX.inventory.models.MapperModels.BrandDetails;
+import com.midox.MIDOX.inventory.models.MapperModels.EntityCode;
+import com.midox.MIDOX.inventory.models.ResponseWrapper;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter @Setter
-public class DesignResponse extends AbstractEntityResponse implements ResponseWrapper{
+public class DesignResponse extends AbstractEntityResponse implements ResponseWrapper {
     private Integer designId;
     String designNo;
 

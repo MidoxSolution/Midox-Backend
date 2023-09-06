@@ -24,6 +24,7 @@ public interface StockHistoryRepository extends JpaRepository<StockHistory, Inte
     // Explicit casting of timestamp is needed for optional
     // As timestamp is compared with date, the date will be converted with timestamp as start of day, thus subtracted 1 day from update at so that toDate search criteria works
     String findAllStockHistoryByCriteriaQuery = "select * from stock_history where  (:stock_id is null or stock_id=:stock_id) " +
+            " and (:adda_id is null or adda_id=:adda_id) " +
             " and (cast(:from_updated_at as timestamp) is null or updated_at >= :from_updated_at) " +
             " and (cast(:to_updated_at as timestamp) is null or updated_at - INTERVAL '1 DAY' <= :to_updated_at) ";
 
@@ -38,5 +39,5 @@ public interface StockHistoryRepository extends JpaRepository<StockHistory, Inte
     List<StockHistory> findAllByStockId(@Param("stock_id") Integer stockId);
 
     @Query(value = findAllStockHistoryByCriteriaQuery, nativeQuery = true)
-    List<StockHistory> findAllBySearchCriteria(@Param("stock_id") Integer stockId, @Param("from_updated_at") Timestamp fromUpdatedAt, @Param("to_updated_at") Timestamp toUpdatedAt);
+    List<StockHistory> findAllBySearchCriteria(@Param("stock_id") Integer stockId, @Param("adda_id") Integer addaId, @Param("from_updated_at") Timestamp fromUpdatedAt, @Param("to_updated_at") Timestamp toUpdatedAt);
 }

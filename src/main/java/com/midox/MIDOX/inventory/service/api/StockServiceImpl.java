@@ -1,5 +1,7 @@
 package com.midox.MIDOX.inventory.service.api;
 
+import com.midox.MIDOX.inventory.Exception.MidoxException;
+import com.midox.MIDOX.inventory.constants.BusinessConstants;
 import com.midox.MIDOX.inventory.entity.Stock;
 import com.midox.MIDOX.inventory.entity.StockHistory;
 import com.midox.MIDOX.inventory.models.StockModel;
@@ -44,6 +46,7 @@ public class StockServiceImpl implements IStockService {
             }
             StockHistory history = stockModel.getStockHistory();
             history.setStockId(found.getStockId());
+            history.setCreditDebitInd(BusinessConstants.CREDIT_INDICATOR);
             stockHistoryService.createStockHistory(history);
             found.setAvailableQuantity(found.getAvailableQuantity() + history.getQuantity());
             stockRepo.saveAndFlush(found);
@@ -71,6 +74,16 @@ public class StockServiceImpl implements IStockService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Stock createStock(Stock stock){
+        stock.setDefaultValues();
+        return stockRepo.saveAndFlush(stock);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Stock updateStock(Stock stock) throws MidoxException{
+        if(null == stock.getStockId()){
+            throw new MidoxException(MidoxException.EXCEPTION_ENTITY_DOES_NOT_EXIST);
+        }
         stock.setDefaultValues();
         return stockRepo.saveAndFlush(stock);
     }

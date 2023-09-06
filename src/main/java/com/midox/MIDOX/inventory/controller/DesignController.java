@@ -2,8 +2,8 @@ package com.midox.MIDOX.inventory.controller;
 
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.Design;
-import com.midox.MIDOX.inventory.models.DesignResponse;
-import com.midox.MIDOX.inventory.models.DesignSearchCriteria;
+import com.midox.MIDOX.inventory.models.ResponseModels.DesignResponse;
+import com.midox.MIDOX.inventory.models.RequestModels.DesignSearchCriteria;
 import com.midox.MIDOX.inventory.service.spi.IDesignProcessService;
 import com.midox.MIDOX.inventory.service.spi.IDesignService;
 import com.midox.MIDOX.inventory.util.Mapper.DesignMapper;

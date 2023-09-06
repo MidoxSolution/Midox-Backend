@@ -3,7 +3,7 @@ package com.midox.MIDOX.inventory.controller;
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.Stock;
 import com.midox.MIDOX.inventory.models.StockModel;
-import com.midox.MIDOX.inventory.models.StockResponse;
+import com.midox.MIDOX.inventory.models.ResponseModels.StockResponse;
 import com.midox.MIDOX.inventory.service.spi.IStockService;
 import com.midox.MIDOX.inventory.util.Mapper.StockMapper;
 import com.midox.MIDOX.inventory.util.Message;

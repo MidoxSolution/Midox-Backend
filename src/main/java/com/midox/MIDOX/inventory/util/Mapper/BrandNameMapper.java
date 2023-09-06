@@ -1,9 +1,7 @@
 package com.midox.MIDOX.inventory.util.Mapper;
 
 import com.midox.MIDOX.inventory.entity.Brand;
-import com.midox.MIDOX.inventory.entity.Employee;
-import com.midox.MIDOX.inventory.models.BrandDetails;
-import com.midox.MIDOX.inventory.models.EmployeeDetails;
+import com.midox.MIDOX.inventory.models.MapperModels.BrandDetails;
 import com.midox.MIDOX.inventory.service.spi.IBrandService;
 import com.midox.MIDOX.inventory.util.MapperUtils;
 import org.mapstruct.*;
@@ -25,7 +23,7 @@ public abstract class BrandNameMapper {
     private IBrandService brandService;
 
     @Named(value = "mapBrandName")
-    String mapEmployeeFromId(Integer brandId) {
+    String mapBrandFromId(Integer brandId) {
         Brand brand = brandService.getBrandById(brandId);
         return brand.getBrandName();
     }

@@ -102,3 +102,29 @@ CREATE SEQUENCE public.design_process_sequence
 
 
 ------------------------------------------------SECOND DRAFT -----------------------------------
+
+------------------------------------------------THIRD DRAFT -----------------------------------
+
+CREATE SEQUENCE public.adda_sequence
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+	CREATE SEQUENCE public.adda_mat_sequence
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+	CREATE SEQUENCE public.adda_pattern_sequence
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
