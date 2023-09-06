@@ -4,11 +4,13 @@ import com.midox.MIDOX.inventory.Exception.MidoxException;
 import com.midox.MIDOX.inventory.constants.BusinessConstants;
 import com.midox.MIDOX.inventory.entity.Stock;
 import com.midox.MIDOX.inventory.entity.StockHistory;
+import com.midox.MIDOX.inventory.models.RequestModels.StockSearchCriteria;
 import com.midox.MIDOX.inventory.models.StockModel;
 import com.midox.MIDOX.inventory.repository.StockHistoryRepository;
 import com.midox.MIDOX.inventory.repository.StockRepository;
 import com.midox.MIDOX.inventory.service.spi.IStockHistoryService;
 import com.midox.MIDOX.inventory.service.spi.IStockService;
+import com.midox.MIDOX.inventory.util.MapperUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,10 +74,24 @@ public class StockServiceImpl implements IStockService {
     }
 
     @Override
+    public List<Stock> getStocksWithCriteria(StockSearchCriteria searchCriteria) {
+        List<Stock> stockList = stockRepo.findStockByCriteria(searchCriteria.getStockId(), searchCriteria.getMaterialCd(), searchCriteria.getSubcategoryCd(), searchCriteria.getColorFabricCd(), searchCriteria.getStockName());
+        return stockList;
+    }
+
+    @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Stock createStock(Stock stock){
+        stock.setStockName(setStockName(stock));
         stock.setDefaultValues();
         return stockRepo.saveAndFlush(stock);
+    }
+
+    private String setStockName(Stock stock){
+        String stockName = MapperUtils.getDisplayValueForEntity(stock.getMaterialCd()) + "_";
+        stockName = stockName + MapperUtils.getDisplayValueForEntity(stock.getSubcategoryCd())+ "_";
+        stockName = stockName + MapperUtils.getDisplayValueForEntity(stock.getColorFabricCd());
+        return stockName.replaceAll(" ", "_");
     }
 
     @Override

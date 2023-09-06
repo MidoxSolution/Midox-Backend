@@ -1,5 +1,6 @@
 package com.midox.MIDOX.inventory.entity;
 
+import com.midox.MIDOX.inventory.util.ValidationUtil;
 import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -36,6 +37,9 @@ public class Stock extends AbstractDataEntity {
 
     @NonNull
     private String unit;
+
+    @Column(name = "stock_name")
+    private String stockName;
 
     @Column(name = "available_quantity")
     private Double availableQuantity;

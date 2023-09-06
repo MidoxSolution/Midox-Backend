@@ -92,6 +92,7 @@ public class AddaServiceImpl implements IAddaService {
     @Override
     public AddaPattern addAddaPattern(AddaPattern addaPattern) {
         // TODO create bundle
+        // TODO quantity check on total pattern and adda quantity
         addaPattern.setDefaultValues();
         return addaPatternRepo.saveAndFlush(addaPattern);
     }

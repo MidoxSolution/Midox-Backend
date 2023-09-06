@@ -250,3 +250,7 @@ ALTER TABLE public.stock_history ADD credit_debit_ind char NOT NULL DEFAULT 'C';
 
 ALTER TABLE public.design ADD CONSTRAINT design_fk FOREIGN KEY (brand_id) REFERENCES public.brand(brand_id);
 ALTER TABLE public.design ADD CONSTRAINT design_fk_1 FOREIGN KEY (product_cd) REFERENCES public.group_entity(entity_cd);
+
+------------------------------------------------------- Fourth Draft -----------------------------
+
+ALTER TABLE public.stock ADD stock_name varchar(255) NULL;

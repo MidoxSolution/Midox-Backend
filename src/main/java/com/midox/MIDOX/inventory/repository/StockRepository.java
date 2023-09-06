@@ -1,6 +1,8 @@
 package com.midox.MIDOX.inventory.repository;
 
+import com.midox.MIDOX.inventory.entity.Adda;
 import com.midox.MIDOX.inventory.entity.Stock;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -42,6 +44,17 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
                      @Param("subcategoryCd") String subcategoryCd,
                      @Param("colorFabricCd") String colorFabricCd,
                      @Param("unit") String unit) throws JpaSystemException;
+
+    String findAllByCriteriaQuery = "select * from stock where " +
+            " (:stock_id is null or stock_id = :stock_id) " +
+            " and (:material_cd is null or material_cd = :material_cd)" +
+            " and (:subcategory_cd is null or subcategory_cd = :subcategory_cd)" +
+            " and (:color_fabric_cd is null or color_fabric_cd = :color_fabric_cd) " +
+            " and (:stock_name is null or stock_name ILIKE %:stock_name%)";
+
+    @Query(value = findAllByCriteriaQuery, nativeQuery = true)
+    List<Stock> findStockByCriteria(@Param("stock_id") Integer stockId, @Param("material_cd") String materialCd, @Param("subcategory_cd") String subcategoryCd, @Param("color_fabric_cd") String colorFabricCd, @Param("stock_name") String stockName);
+
 //    @Query(value = updateStockQuery, nativeQuery = true)
 //    void updateStockCount(@Param("materialId") int materialId, @Param("quantity") int quantity) throws JpaSystemException;
 }

@@ -2,6 +2,7 @@ package com.midox.MIDOX.inventory.controller;
 
 import com.midox.MIDOX.inventory.constants.ConfigConstants;
 import com.midox.MIDOX.inventory.entity.Stock;
+import com.midox.MIDOX.inventory.models.RequestModels.StockSearchCriteria;
 import com.midox.MIDOX.inventory.models.StockModel;
 import com.midox.MIDOX.inventory.models.ResponseModels.StockResponse;
 import com.midox.MIDOX.inventory.service.spi.IStockService;
@@ -58,6 +59,21 @@ public class StockController {
         response = new ResponseEntity<List<StockResponse>>(new ArrayList(), HttpStatus.EXPECTATION_FAILED);
         e.printStackTrace();
     }
+        return response;
+    }
+
+    @PostMapping("/get-stocks")
+    public ResponseEntity<List<StockResponse>> getStockWithCriteria(@RequestBody StockSearchCriteria searchCriteria) {
+        ResponseEntity<List<StockResponse>> response = null;
+        try {
+            List<Stock> stockList = stockService.getStocksWithCriteria(searchCriteria);
+            List<StockResponse> result = new ArrayList<>();
+            stockList.forEach(s -> result.add(stockMapper.toStockResponse(s)));
+            response = new ResponseEntity<>(new ArrayList<>(result), HttpStatus.OK);
+        } catch (Exception e) {
+            response = new ResponseEntity<List<StockResponse>>(new ArrayList(), HttpStatus.EXPECTATION_FAILED);
+            e.printStackTrace();
+        }
         return response;
     }
 }

@@ -15,6 +15,7 @@ public class StockResponse extends AbstractEntityResponse implements ResponseWra
     private EntityCode colorFabricCd;
 
     private EntityCode unit;
+    String stockName;
 
     private Double availableQuantity;
 }
