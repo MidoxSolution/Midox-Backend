@@ -254,3 +254,41 @@ ALTER TABLE public.design ADD CONSTRAINT design_fk_1 FOREIGN KEY (product_cd) RE
 ------------------------------------------------------- Fourth Draft -----------------------------
 
 ALTER TABLE public.stock ADD stock_name varchar(255) NULL;
+
+------------------------------------------------------- Fourth Draft -----------------------------
+ALTER TABLE public.adda ADD finished_quantity float8 NULL SET DEFAULT 0.0;
+ALTER TABLE public.adda_pattern ADD finished_quantity float8 NULL SET DEFAULT 0.0;
+
+
+CREATE TABLE public.adda_bundle (
+	bundle_id int4 NOT NULL,
+	bundle_name varchar(255) NULL,
+	pattern_id int4 NOT NULL,
+	status varchar NOT NULL,
+	current_process_cd varchar ,
+	current_process_status varchar ,
+	current_employee_id int4,
+	quantity float8 NOT NULL,
+	created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	created_by int4 NULL DEFAULT 1,
+	updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_by int4 NULL DEFAULT 1,
+	CONSTRAINT bundle_pkey PRIMARY KEY (bundle_id),
+	CONSTRAINT bundle_un UNIQUE (bundle_name)
+);
+
+CREATE TABLE public.adda_bundle_history (
+	bundle_history_id int4 NOT NULL,
+	bundle_id int4 NOT NULL,
+	process_cd varchar NOT NULL,
+	process_status varchar(255) NULL,
+	employee_id int4,
+	quantity float8 NOT NULL,
+	start_date date NULL,
+	end_date date NULL,
+	created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	created_by int4 NULL DEFAULT 1,
+	updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_by int4 NULL DEFAULT 1,
+	CONSTRAINT bundle_history_pkey PRIMARY KEY (bundle_history_id)
+);

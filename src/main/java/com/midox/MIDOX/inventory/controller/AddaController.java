@@ -41,11 +41,12 @@ public class AddaController {
     }
 
 
+    // TODO make it update
     @PostMapping("/edit")
     public ResponseEntity<Message> editAdda(@RequestBody Adda adda) {
         ResponseEntity<Message> response = null;
         try {
-            addaService.editAdda(adda);
+            addaService.updateAdda(adda);
             response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.BRAND_ADDED), HttpStatus.CREATED);
         } catch (Exception e) {
             response = new ResponseEntity<Message>(new Message(ConfigConstants.Messages.BRAND_ADD_OPERATION_FAILED), HttpStatus.OK);
@@ -150,7 +151,7 @@ public class AddaController {
     public ResponseEntity<List<AddaResponse>> getAddas(@RequestBody AddaSearchCriteria searchCriteria) {
         ResponseEntity<List<AddaResponse>> response = null;
         try {
-            List<Adda> addas = addaService.getAddaByCriteria(searchCriteria.getDesignId(), searchCriteria.getDesignNo(), searchCriteria.getAddaId(), searchCriteria.getBrandId(), searchCriteria.getProductCd(), searchCriteria.getAddaNo());
+            List<Adda> addas = addaService.getAddaByCriteria(searchCriteria);
             List<AddaResponse> result = new ArrayList<>();
             addas.forEach(a -> result.add(addaMapper.toAddaResponse(a)));
             response = new ResponseEntity<List<AddaResponse>>(result, HttpStatus.OK);

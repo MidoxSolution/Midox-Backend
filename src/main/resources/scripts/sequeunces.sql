@@ -128,3 +128,21 @@ CREATE SEQUENCE public.adda_sequence
 	START 1
 	CACHE 1
 	NO CYCLE;
+
+------------------------------------------------FOURTH DRAFT -----------------------------------
+
+CREATE SEQUENCE public.bundle_sequence
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+CREATE SEQUENCE public.bundle_history_sequence
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;

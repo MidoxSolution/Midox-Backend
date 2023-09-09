@@ -1,10 +1,8 @@
 package com.midox.MIDOX.inventory.service.spi;
 
 import com.midox.MIDOX.inventory.Exception.MidoxException;
-import com.midox.MIDOX.inventory.entity.Adda;
-import com.midox.MIDOX.inventory.entity.AddaMaterial;
-import com.midox.MIDOX.inventory.entity.AddaPattern;
-import com.midox.MIDOX.inventory.entity.Design;
+import com.midox.MIDOX.inventory.entity.*;
+import com.midox.MIDOX.inventory.models.RequestModels.AddaSearchCriteria;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +13,7 @@ public interface IAddaService {
     Adda addAdda(Adda adda);
 
     @Transactional(propagation = Propagation.REQUIRED)
-    Adda editAdda(Adda adda) throws MidoxException;
+    Adda updateAdda(Adda adda) throws MidoxException;
 
     AddaMaterial updateAddaMaterial(AddaMaterial addaMaterial) throws MidoxException;
 
@@ -31,5 +29,12 @@ public interface IAddaService {
 
     void deleteAddaPattern(AddaPattern addaPattern) throws MidoxException;
 
-     List<Adda> getAddaByCriteria(Integer designId, String designNo, Integer addaId, Integer brandID, String productCd, String addaNo);
+     List<Adda> getAddaByCriteria(AddaSearchCriteria searchCriteria);
+
+    List<DesignProcess> getDesignProcessesForAdda(Integer addaId);
+
+    AddaPattern getPatternById(Integer patternId);
+
+    // TODO add a validation API
 }
+

@@ -53,6 +53,9 @@ public class Adda extends AbstractDataEntity{
     @Column(name = "quantity")
     Double quantity;
 
+    @Column(name = "finished_quantity")
+    Double finishedQuantity;
+
     @Column(name = "completion_date")
     Date completionDate;
 
@@ -71,6 +74,7 @@ public class Adda extends AbstractDataEntity{
     @Override
     public void setDefaultValues(){
         super.setDefaultValues();
+        this.finishedQuantity = null == this.finishedQuantity? 0.0 : this.finishedQuantity;
         this.status = null == this.status ? ProcStatus.PROC_STAT_TBS : this.status;
     }
 }

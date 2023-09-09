@@ -37,9 +37,13 @@ public class AddaPattern extends AbstractDataEntity{
     @Column(name = "quantity")
     Double quantity;
 
+    @Column(name = "finished_quantity")
+    Double finishedQuantity;
+
     @Override
     public void setDefaultValues(){
         super.setDefaultValues();
+        this.finishedQuantity = null == this.finishedQuantity? 0.0 : this.finishedQuantity;
     }
 }
 

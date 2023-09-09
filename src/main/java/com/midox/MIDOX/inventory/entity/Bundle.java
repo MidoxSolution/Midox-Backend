@@ -23,4 +23,8 @@ public class Bundle extends AbstractDataEntity {
     @NonNull
     @Column(name = "bundle_name")
     private String bundleName;
+
+    @NonNull
+    @Column(name = "pattern_id")
+    Integer patternId;
 }

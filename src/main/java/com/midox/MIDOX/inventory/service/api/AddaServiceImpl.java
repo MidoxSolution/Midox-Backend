@@ -3,17 +3,17 @@ package com.midox.MIDOX.inventory.service.api;
 import com.midox.MIDOX.inventory.Exception.MidoxException;
 import com.midox.MIDOX.inventory.constants.BusinessConstants;
 import com.midox.MIDOX.inventory.entity.*;
+import com.midox.MIDOX.inventory.models.RequestModels.AddaSearchCriteria;
 import com.midox.MIDOX.inventory.models.RequestModels.StockHistorySearchCriteria;
 import com.midox.MIDOX.inventory.repository.Adda.AddaMaterialRepository;
 import com.midox.MIDOX.inventory.repository.Adda.AddaPatternRepository;
 import com.midox.MIDOX.inventory.repository.Adda.AddaRepository;
-import com.midox.MIDOX.inventory.service.spi.IAddaService;
-import com.midox.MIDOX.inventory.service.spi.IStockHistoryService;
-import com.midox.MIDOX.inventory.service.spi.IStockService;
+import com.midox.MIDOX.inventory.service.spi.*;
 import com.midox.MIDOX.inventory.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +39,13 @@ public class AddaServiceImpl implements IAddaService {
     @Autowired
     IStockService stockService;
 
+    @Autowired
+    IDesignProcessService processService;
+
+    @Autowired
+    @Lazy
+    IAddaBundleService bundleService;
+
 
     @Override
     public Adda addAdda(Adda adda) {
@@ -47,7 +54,7 @@ public class AddaServiceImpl implements IAddaService {
     }
 
     @Override
-    public Adda editAdda(Adda adda) throws MidoxException{
+    public Adda updateAdda(Adda adda) throws MidoxException{
         if(null == adda.getAddaId()){
             throw new MidoxException(MidoxException.EXCEPTION_ENTITY_DOES_NOT_EXIST);
         }
@@ -57,6 +64,7 @@ public class AddaServiceImpl implements IAddaService {
 
     @Override
     public AddaMaterial addAddaMaterial(AddaMaterial addaMaterial) throws MidoxException{
+        // TODO validation on stock quantity and error if not enough stock is there
         createStockHistoryForAdda(addaMaterial);
         addaMaterial.setDefaultValues();
         return addaMaterialRepo.saveAndFlush(addaMaterial);
@@ -94,7 +102,9 @@ public class AddaServiceImpl implements IAddaService {
         // TODO create bundle
         // TODO quantity check on total pattern and adda quantity
         addaPattern.setDefaultValues();
-        return addaPatternRepo.saveAndFlush(addaPattern);
+        addaPattern = addaPatternRepo.saveAndFlush(addaPattern);
+        bundleService.createBundlesForPattern(addaPattern);
+        return addaPattern;
     }
 
     @Override
@@ -115,13 +125,26 @@ public class AddaServiceImpl implements IAddaService {
     }
 
     @Override
-    public List<Adda> getAddaByCriteria(Integer designId, String designNo, Integer addaId, Integer brandID, String productCd, String addaNo) {
-        List<Adda> addas =  addaRepository.findAddasByCriteria(designId, designNo, addaId, brandID, productCd, addaNo);
+    public List<Adda> getAddaByCriteria(AddaSearchCriteria searchCriteria) {
+        List<Adda> addas =  addaRepository.findAddasByCriteria(searchCriteria.getDesignId(), searchCriteria.getDesignNo(), searchCriteria.getAddaId(), searchCriteria.getBrandId(), searchCriteria.getProductCd(), searchCriteria.getAddaNo());
         addas.forEach(adda -> {
             adda.setAddaMaterials(addaMaterialRepo.findAllByAddaId(adda.getAddaId()));
             adda.setAddaPatterns(addaPatternRepo.findAllByAddaId(adda.getAddaId()));
         });
         return addas;
+    }
+
+    @Override
+    public List<DesignProcess> getDesignProcessesForAdda(Integer addaId){
+       Adda adda = addaRepository.findById(addaId).get();
+
+       return processService.getAllProcessesForDesign(adda.getDesignId());
+    }
+
+    @Override
+    public AddaPattern getPatternById(Integer patternId){
+        //TODO exception handling
+        return addaPatternRepo.findById(patternId).get();
     }
 
     private void createStockHistoryForAdda(AddaMaterial addaMaterial) throws MidoxException{

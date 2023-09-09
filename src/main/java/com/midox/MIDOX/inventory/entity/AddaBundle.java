@@ -14,7 +14,7 @@ public class AddaBundle extends AbstractDataEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "adda_bundle_id_generator")
-    @SequenceGenerator(name = "adda_bundle_id_generator", sequenceName = "adda_bundle_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "adda_bundle_id_generator", sequenceName = "bundle_sequence", allocationSize = 1)
     @Column(name = "bundle_id", unique = true)
     private Integer bundleId;
 
@@ -26,18 +26,21 @@ public class AddaBundle extends AbstractDataEntity{
     @Column(name = "bundle_name")
     String bundleName;
 
-    @NonNull
-    @Column
-    String color;
+    // TODO check if completion of bundle doesn't mark these fields null, then restore non null check
+    //@NonNull
+    @Column(name = "current_process_cd")
+    String currentProcessCd;
 
-    @NonNull
+    //@NonNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "current_process_status")
+    private TextileEnum.ProcStatus currentProcessStatus;
+
+    @Column(name = "current_employee_id")
+    Integer currentEmployeeId;
+
     @Enumerated(EnumType.STRING)
     private TextileEnum.ProcStatus status;
-
-
-    @NonNull
-    @Column(name = "bundle_size")
-    Integer bundleSize;
 
     @NonNull
     @Column(name = "quantity")
@@ -46,6 +49,8 @@ public class AddaBundle extends AbstractDataEntity{
     @Override
     public void setDefaultValues(){
         super.setDefaultValues();
+        this.status = null == this.status ? TextileEnum.ProcStatus.PROC_STAT_TBS : this.status;
+
     }
 }
 
